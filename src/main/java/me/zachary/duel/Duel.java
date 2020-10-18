@@ -3,6 +3,7 @@ package me.zachary.duel;
 import me.zachary.duel.Arenas.Arena;
 import me.zachary.duel.Arenas.ArenaListeners;
 import me.zachary.duel.Arenas.ArenaManager;
+import me.zachary.duel.Utils.Metrics;
 import me.zachary.duel.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,6 +33,9 @@ public final class Duel extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        int pluginId = 9146;
+        Metrics metrics = new Metrics(this, pluginId);
+
         getCommand("duel").setExecutor(this);
         getServer().getPluginManager().registerEvents(new ArenaListeners(this), this);
 
