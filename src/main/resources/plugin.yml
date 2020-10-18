@@ -1,0 +1,10 @@
+name: Duel
+version: ${project.version}
+main: me.zachary.duel.Duel
+api-version: 1.16
+authors: [ Zach_FR ]
+description: Duel your friends with this plugin
+
+commands:
+  duel:
+    description: Main Command
