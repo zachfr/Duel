@@ -1,7 +1,7 @@
 package me.zachary.duel.Arenas;
 
-import me.zachary.duel.Duel;
 import me.zachary.duel.Utils.Utils;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,7 +14,6 @@ public class ArenaManager {
     static Map<UUID, ItemStack[]> armor = new HashMap<UUID, ItemStack[]>();
 
     private List<Arena> arenas = new ArrayList<>();
-    private static Duel duel;
 
     public void addArena(Arena arena) {
         this.arenas.add(arena);
@@ -118,12 +117,12 @@ public class ArenaManager {
     public static void addStuff(Player player) {
         player.getInventory().setHelmet(Utils.CreateItem(Material.DIAMOND_HELMET));
         //player.getInventory().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
-        player.getInventory().setChestplate(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Chestplate"))));
-        player.getInventory().setLeggings(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Leggings"))));
-        player.getInventory().setBoots(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Boots"))));
+        //player.getInventory().setChestplate(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Chestplate"))));
+        //player.getInventory().setLeggings(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Leggings"))));
+        //player.getInventory().setBoots(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Boots"))));
 
         //player.getInventory().addItem(new ItemStack(Material.DIAMOND_SWORD));
-        player.getInventory().addItem(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Sword"))));
+        player.getInventory().addItem(Utils.CreateItem(Material.matchMaterial("DIAMOND_SWORD")));
     }
 
 

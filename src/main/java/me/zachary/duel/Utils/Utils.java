@@ -8,6 +8,7 @@ public class Utils {
     public static String chat (String s) {
         return ChatColor.translateAlternateColorCodes('&', s);
     }
+
     public static ItemStack CreateItem(Material material) {
         ItemStack item = new ItemStack(material);
         return item;
