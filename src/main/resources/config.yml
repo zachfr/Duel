@@ -25,3 +25,10 @@ HelpCommand:
   - "&e/&rduel createarena <loc1> <loc2> <ArenaName>"
   - "&e/&rduel createarena <X,Y,Z> <X,Y,Z> <ArenaName>"
   - "&6------------------------------------"
+
+#Stuff for duel.
+Helmet: "DIAMOND_HELMET"
+Chestplate: "DIAMOND_CHESTPLATE"
+Leggings: "DIAMOND_LEGGINGS"
+Boots: "DIAMOND_BOOTS"
+Sword: "DIAMOND_SWORD"

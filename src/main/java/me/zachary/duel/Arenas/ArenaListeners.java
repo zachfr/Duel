@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class ArenaListeners implements Listener {
 
@@ -40,10 +41,19 @@ public class ArenaListeners implements Listener {
             Player killer = (Player) victim.getKiller();
             Arena arena = main.getArenaManager().getArenaByPlayer(killer);
 
+            main.getArenaManager().restoreInventory(killer);
+
             if(arena != null) {
                 arena.eliminate(victim);
             }
         }
+    }
+
+    @EventHandler
+    public  void onRespawn(PlayerRespawnEvent event) {
+        Player victim = (Player) event.getPlayer();
+        main.getArenaManager().restoreInventory(victim);
+        main.getArenaManager().ClearMap(victim);
     }
 
     @EventHandler
