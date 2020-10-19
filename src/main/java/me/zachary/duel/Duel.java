@@ -3,6 +3,7 @@ package me.zachary.duel;
 import me.zachary.duel.Arenas.Arena;
 import me.zachary.duel.Arenas.ArenaListeners;
 import me.zachary.duel.Arenas.ArenaManager;
+import me.zachary.duel.Utils.Metrics;
 import me.zachary.duel.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -26,13 +27,15 @@ public final class Duel extends JavaPlugin {
     private File arenaFile;
     private YamlConfiguration arenaConfig;
     private Main plugin;
-    //test
 
     public Duel() {
     }
 
     @Override
     public void onEnable() {
+        int pluginId = 9146;
+        Metrics metrics = new Metrics(this, pluginId);
+
         getCommand("duel").setExecutor(this);
         getServer().getPluginManager().registerEvents(new ArenaListeners(this), this);
 
@@ -80,10 +83,9 @@ public final class Duel extends JavaPlugin {
             Player player = (Player) sender;
 
             if (args.length == 0) {
-                player.sendMessage("§e/§rduel <player>");
-                player.sendMessage("§e/§rduel <accept/deny>");
-                player.sendMessage("§e/§rduel createarena <loc1> <loc2> <ArenaName>");
-                player.sendMessage(" §e/§rduel createarena <X,Y,Z> <X,Y,Z> <ArenaName>");
+                for(String message : this.getConfig().getStringList("HelpCommand")){
+                    sender.sendMessage(Utils.chat(message));
+                }
                 return true;
             }
             if (args.length >= 1){
@@ -139,12 +141,11 @@ public final class Duel extends JavaPlugin {
                     }
 
 
-                }/* else if (args[0].equalsIgnoreCase("arenalist")) {
+                } /*else if (args[0].equalsIgnoreCase("arenalist")) {
                     if (player.hasPermission("duel.arenalist")) {
                         player.sendMessage("yea hi");
-                        //TODO: add arena list
                     }else {
-                        player.sendMessage("You don't have permission!");
+                        player.sendMessage(this.getConfig().getString("No_Permission"));
                     }
                 }*/ else if (Bukkit.getPlayer(targetName) != null){
                     Player target = Bukkit.getPlayer(targetName);
