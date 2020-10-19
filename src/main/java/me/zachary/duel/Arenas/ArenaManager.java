@@ -1,5 +1,6 @@
 package me.zachary.duel.Arenas;
 
+import me.zachary.duel.Duel;
 import me.zachary.duel.Utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,6 +16,11 @@ public class ArenaManager {
     static Map<String, Location> locations = new HashMap<String, Location>();
 
     private List<Arena> arenas = new ArrayList<>();
+    private static Duel main;
+
+    public ArenaManager(Duel duel) {
+        this.main = duel;
+    }
 
     public void addArena(Arena arena) {
         this.arenas.add(arena);
@@ -40,8 +46,8 @@ public class ArenaManager {
             addStuff(secondPlayer);
 
         }else {
-            firstPlayer.sendMessage("§cNo arena available!");
-            secondPlayer.sendMessage("§cNo arena available!");
+            firstPlayer.sendMessage(Utils.chat(main.getConfig().getString("No_Arena_Available")));
+            secondPlayer.sendMessage(Utils.chat(main.getConfig().getString("No_Arena_Available")));
         }
     }
 
@@ -87,8 +93,12 @@ public class ArenaManager {
     public void restoreInventory(Player player){
         UUID uuid = player.getUniqueId();
 
-        Location loc = locations.get(player.getName());
-        player.teleport(loc);
+        try {
+            Location loc = locations.get(player.getName());
+            player.teleport(loc);
+        } catch (Exception e) {
+
+        }
 
         ItemStack[] contents = items.get(uuid);
         ItemStack[] armorContents = armor.get(uuid);
@@ -118,23 +128,19 @@ public class ArenaManager {
     public static void ClearMap(Player player) {
         items.clear();
         armor.clear();
-        locations.clear();
     }
 
     public static void SaveLocations(Player player) {
         locations.put(player.getName(), player.getLocation());
-        Location loc = locations.get(player.getName());
     }
 
     public static void addStuff(Player player) {
-        player.getInventory().setHelmet(Utils.CreateItem(Material.DIAMOND_HELMET));
-        //player.getInventory().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
-        //player.getInventory().setChestplate(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Chestplate"))));
-        //player.getInventory().setLeggings(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Leggings"))));
-        //player.getInventory().setBoots(Utils.CreateItem(Material.matchMaterial(duel.getConfig().getString("Boots"))));
+        player.getInventory().setHelmet(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Helmet"))));
+        player.getInventory().setChestplate(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Chestplate"))));
+        player.getInventory().setLeggings(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Leggings"))));
+        player.getInventory().setBoots(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Boots"))));
 
-        //player.getInventory().addItem(new ItemStack(Material.DIAMOND_SWORD));
-        player.getInventory().addItem(Utils.CreateItem(Material.matchMaterial("DIAMOND_SWORD")));
+        player.getInventory().addItem(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Sword"))));
     }
 
 

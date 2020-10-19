@@ -38,6 +38,7 @@ public class ArenaListeners implements Listener {
     public void onKill(PlayerDeathEvent event){
 
         if (event.getEntity().getKiller() instanceof Player) {
+            event.getDrops().clear();
             Player victim = event.getEntity();
             Player killer = (Player) victim.getKiller();
             Arena arena = main.getArenaManager().getArenaByPlayer(killer);
@@ -51,8 +52,8 @@ public class ArenaListeners implements Listener {
     }
 
     @EventHandler
-    public  void onRespawn(PlayerRespawnEvent event) {
-        Player victim = (Player) event.getPlayer();
+    public void onRespawn(PlayerRespawnEvent event) {
+        Player victim = event.getPlayer();
         main.getArenaManager().restoreInventory(victim);
         main.getArenaManager().ClearMap(victim);
     }

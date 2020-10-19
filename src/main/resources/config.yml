@@ -18,6 +18,8 @@ Receive_Duel: "&9You have just received a duel request from &r<player>"
 
 Player_Not_Connected: "Player &c<PlayerNotConnected>&f it's not connected or not exist"
 
+No_Arena_Available: "&cNo arena available!"
+
 HelpCommand:
   - "&6--------------&e Duel &6----------------"
   - "&e/&rduel <player>"
@@ -27,8 +29,9 @@ HelpCommand:
   - "&6------------------------------------"
 
 #Stuff for duel.
-Helmet: "DIAMOND_HELMET"
-Chestplate: "DIAMOND_CHESTPLATE"
-Leggings: "DIAMOND_LEGGINGS"
-Boots: "DIAMOND_BOOTS"
-Sword: "DIAMOND_SWORD"
+Stuff:
+  Helmet: "DIAMOND_HELMET"
+  Chestplate: "DIAMOND_CHESTPLATE"
+  Leggings: "DIAMOND_LEGGINGS"
+  Boots: "DIAMOND_BOOTS"
+  Sword: "DIAMOND_SWORD"
