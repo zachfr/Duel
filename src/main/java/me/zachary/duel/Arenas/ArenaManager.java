@@ -124,7 +124,6 @@ public class ArenaManager {
     public static void SaveLocations(Player player) {
         locations.put(player.getName(), player.getLocation());
         Location loc = locations.get(player.getName());
-        //player.sendMessage("X:"+loc.getX()+" Y:"+loc.getY()+" Z:"+loc.getZ());
     }
 
     public static void addStuff(Player player) {
