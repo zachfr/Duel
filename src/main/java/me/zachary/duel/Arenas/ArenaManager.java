@@ -12,6 +12,7 @@ public class ArenaManager {
 
     static Map<UUID, ItemStack[]> items = new HashMap<UUID, ItemStack[]>();
     static Map<UUID, ItemStack[]> armor = new HashMap<UUID, ItemStack[]>();
+    static Map<String, Location> locations = new HashMap<String, Location>();
 
     private List<Arena> arenas = new ArrayList<>();
 
@@ -23,6 +24,8 @@ public class ArenaManager {
         Arena nextArena = getNextArena();
 
         if (nextArena != null) {
+            SaveLocations(firstPlayer);
+            SaveLocations(secondPlayer);
 
             nextArena.getPlayers().add(firstPlayer);
             nextArena.getPlayers().add(secondPlayer);
@@ -84,6 +87,9 @@ public class ArenaManager {
     public void restoreInventory(Player player){
         UUID uuid = player.getUniqueId();
 
+        Location loc = locations.get(player.getName());
+        player.teleport(loc);
+
         ItemStack[] contents = items.get(uuid);
         ItemStack[] armorContents = armor.get(uuid);
 
@@ -112,6 +118,13 @@ public class ArenaManager {
     public static void ClearMap(Player player) {
         items.clear();
         armor.clear();
+        locations.clear();
+    }
+
+    public static void SaveLocations(Player player) {
+        locations.put(player.getName(), player.getLocation());
+        Location loc = locations.get(player.getName());
+        //player.sendMessage("X:"+loc.getX()+" Y:"+loc.getY()+" Z:"+loc.getZ());
     }
 
     public static void addStuff(Player player) {
