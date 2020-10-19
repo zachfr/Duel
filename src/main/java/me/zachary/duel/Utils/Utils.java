@@ -9,8 +9,4 @@ public class Utils {
         return ChatColor.translateAlternateColorCodes('&', s);
     }
 
-    public static ItemStack CreateItem(Material material) {
-        ItemStack item = new ItemStack(material);
-        return item;
-    }
 }
