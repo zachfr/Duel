@@ -41,12 +41,17 @@ public final class Duel extends JavaPlugin {
 
         ConfigurationSection arenaSection = arenaConfig.getConfigurationSection("arenas");
 
-        /*for(String string : arenaSection.getKeys(false)) {
-            String loc1 = (String) arenaSection.get(string + ".loc1");
-            String loc2 = (String) arenaSection.get(string + ".loc2");
-            Arena arena = new Arena(parseStringToLoc(loc1), parseStringToLoc(loc2));
-            arenaManager.addArena(arena);
-        }*/
+        try {
+            for(String string : arenaSection.getKeys(false)) {
+                String loc1 = (String) arenaSection.get(string + ".loc1");
+                String loc2 = (String) arenaSection.get(string + ".loc2");
+                Arena arena = new Arena(parseStringToLoc(loc1), parseStringToLoc(loc2));
+                arenaManager.addArena(arena);
+            }
+        }
+        catch(Exception e) {
+            System.out.print("[Duel] You don't have create arena yet!");
+        }
 
     }
 
