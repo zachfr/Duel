@@ -23,7 +23,7 @@ import java.util.Map;
 public final class Duel extends JavaPlugin {
 
     private Map<Player, Player> players = new HashMap<>();
-    private ArenaManager arenaManager = new ArenaManager();
+    private ArenaManager arenaManager = new ArenaManager(this);
     private File arenaFile;
     private YamlConfiguration arenaConfig;
     private Main plugin;

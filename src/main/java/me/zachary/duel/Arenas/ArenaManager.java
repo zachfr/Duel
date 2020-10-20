@@ -1,5 +1,6 @@
 package me.zachary.duel.Arenas;
 
+import me.zachary.duel.Duel;
 import me.zachary.duel.Utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,7 +11,16 @@ import java.util.*;
 
 public class ArenaManager {
 
+    static Map<UUID, ItemStack[]> items = new HashMap<UUID, ItemStack[]>();
+    static Map<UUID, ItemStack[]> armor = new HashMap<UUID, ItemStack[]>();
+    static Map<String, Location> locations = new HashMap<String, Location>();
+
     private List<Arena> arenas = new ArrayList<>();
+    private static Duel main;
+
+    public ArenaManager(Duel duel) {
+        this.main = duel;
+    }
 
     public void addArena(Arena arena) {
         this.arenas.add(arena);
@@ -20,6 +30,8 @@ public class ArenaManager {
         Arena nextArena = getNextArena();
 
         if (nextArena != null) {
+            SaveLocations(firstPlayer);
+            SaveLocations(secondPlayer);
 
             nextArena.getPlayers().add(firstPlayer);
             nextArena.getPlayers().add(secondPlayer);
@@ -27,9 +39,17 @@ public class ArenaManager {
             secondPlayer.teleport(nextArena.getSecondLoc());
             nextArena.setStarted();
 
+            if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {
+                storeAndClearInventory(firstPlayer);
+                storeAndClearInventory(secondPlayer);
+
+                addStuff(firstPlayer);
+                addStuff(secondPlayer);
+            }
+
         }else {
-            firstPlayer.sendMessage("§cNo arena available!");
-            secondPlayer.sendMessage("§cNo arena available!");
+            firstPlayer.sendMessage(Utils.chat(main.getConfig().getString("No_Arena_Available")));
+            secondPlayer.sendMessage(Utils.chat(main.getConfig().getString("No_Arena_Available")));
         }
     }
 
@@ -55,6 +75,76 @@ public class ArenaManager {
 
     public List<Arena> getArenas() {
         return arenas;
+    }
+
+    public static void storeAndClearInventory(Player player){
+        UUID uuid = player.getUniqueId();
+
+        ItemStack[] cont = player.getInventory().getContents();
+        ItemStack[] armcont = player.getInventory().getArmorContents();
+
+        items.put(uuid, cont);
+        armor.put(uuid, armcont);
+
+        player.getInventory().clear();
+
+        remArmor(player);
+    }
+
+
+    public void restoreInventory(Player player){
+        UUID uuid = player.getUniqueId();
+
+        ItemStack[] contents = items.get(uuid);
+        ItemStack[] armorContents = armor.get(uuid);
+
+        if(contents != null){
+            player.getInventory().setContents(contents);
+        }
+        else{//if the player has no inventory contents, clear their inventory
+            player.getInventory().clear();
+        }
+
+        if(armorContents != null){
+            player.getInventory().setArmorContents(armorContents);
+        }
+        else{//if the player has no armor, set the armor to null
+            remArmor(player);
+        }
+    }
+
+    public static void remArmor(Player player){
+        player.getInventory().setHelmet(null);
+        player.getInventory().setChestplate(null);
+        player.getInventory().setLeggings(null);
+        player.getInventory().setBoots(null);
+    }
+
+    public static void ClearMap(Player player) {
+        items.clear();
+        armor.clear();
+    }
+
+    public static void SaveLocations(Player player) {
+        locations.put(player.getName(), player.getLocation());
+    }
+
+    public static void restoreLocations(Player player) {
+        try {
+            Location loc = locations.get(player.getName());
+            player.teleport(loc);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static void addStuff(Player player) {
+        player.getInventory().setHelmet(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Helmet"))));
+        player.getInventory().setChestplate(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Chestplate"))));
+        player.getInventory().setLeggings(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Leggings"))));
+        player.getInventory().setBoots(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Boots"))));
+
+        player.getInventory().addItem(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Sword"))));
     }
 
 

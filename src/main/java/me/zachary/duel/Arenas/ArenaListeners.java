@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
@@ -38,10 +37,15 @@ public class ArenaListeners implements Listener {
     public void onKill(PlayerDeathEvent event){
 
         if (event.getEntity().getKiller() instanceof Player) {
+            event.getDrops().clear();
             Player victim = event.getEntity();
             Player killer = (Player) victim.getKiller();
             Arena arena = main.getArenaManager().getArenaByPlayer(killer);
 
+            if(!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")){
+                main.getArenaManager().restoreInventory(killer);
+            }
+            main.getArenaManager().restoreLocations(killer);
 
             if(arena != null) {
                 arena.eliminate(victim);
@@ -50,8 +54,13 @@ public class ArenaListeners implements Listener {
     }
 
     @EventHandler
-    public  void onRespawn(PlayerRespawnEvent event) {
-        Player victim = (Player) event.getPlayer();
+    public void onRespawn(PlayerRespawnEvent event) {
+        Player victim = event.getPlayer();
+        if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {
+            main.getArenaManager().restoreInventory(victim);
+            main.getArenaManager().ClearMap(victim);
+        }
+        main.getArenaManager().restoreLocations(victim);
     }
 
     @EventHandler
