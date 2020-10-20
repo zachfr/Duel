@@ -39,11 +39,13 @@ public class ArenaManager {
             secondPlayer.teleport(nextArena.getSecondLoc());
             nextArena.setStarted();
 
-            storeAndClearInventory(firstPlayer);
-            storeAndClearInventory(secondPlayer);
+            if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {
+                storeAndClearInventory(firstPlayer);
+                storeAndClearInventory(secondPlayer);
 
-            addStuff(firstPlayer);
-            addStuff(secondPlayer);
+                addStuff(firstPlayer);
+                addStuff(secondPlayer);
+            }
 
         }else {
             firstPlayer.sendMessage(Utils.chat(main.getConfig().getString("No_Arena_Available")));
@@ -93,13 +95,6 @@ public class ArenaManager {
     public void restoreInventory(Player player){
         UUID uuid = player.getUniqueId();
 
-        try {
-            Location loc = locations.get(player.getName());
-            player.teleport(loc);
-        } catch (Exception e) {
-
-        }
-
         ItemStack[] contents = items.get(uuid);
         ItemStack[] armorContents = armor.get(uuid);
 
@@ -132,6 +127,15 @@ public class ArenaManager {
 
     public static void SaveLocations(Player player) {
         locations.put(player.getName(), player.getLocation());
+    }
+
+    public static void restoreLocations(Player player) {
+        try {
+            Location loc = locations.get(player.getName());
+            player.teleport(loc);
+        } catch (Exception e) {
+
+        }
     }
 
     public static void addStuff(Player player) {

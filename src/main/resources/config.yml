@@ -28,6 +28,8 @@ HelpCommand:
   - "&e/&rduel createarena <X,Y,Z> <X,Y,Z> <ArenaName>"
   - "&6------------------------------------"
 
+Player_Should_PVP_With_Their_Own_Stuff: false
+
 #Stuff for duel.
 Stuff:
   Helmet: "DIAMOND_HELMET"
