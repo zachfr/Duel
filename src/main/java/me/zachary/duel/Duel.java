@@ -27,7 +27,6 @@ public final class Duel extends JavaPlugin {
     private File arenaFile;
     private YamlConfiguration arenaConfig;
     private Main plugin;
-    //test
 
     public Duel() {
     }
