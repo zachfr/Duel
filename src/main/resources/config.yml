@@ -20,6 +20,10 @@ Player_Not_Connected: "Player &c<PlayerNotConnected>&f it's not connected or not
 
 No_Arena_Available: "&cNo arena available!"
 
+Duel_Start_Title: "&6Duel Start!"
+
+Duel_Start_SubTitle: "&eYour duel with &6<Player>"
+
 HelpCommand:
   - "&6--------------&e Duel &6----------------"
   - "&e/&rduel <player>"

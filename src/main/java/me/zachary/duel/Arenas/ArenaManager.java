@@ -33,6 +33,9 @@ public class ArenaManager {
             SaveLocations(firstPlayer);
             SaveLocations(secondPlayer);
 
+            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(firstPlayer, Utils.chat(main.getConfig().getString("Duel_Start_Title")), Utils.chat(main.getConfig().getString("Duel_Start_SubTitle").replace("<Player>", secondPlayer.getName())));
+            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(secondPlayer, Utils.chat(main.getConfig().getString("Duel_Start_Title")), Utils.chat(main.getConfig().getString("Duel_Start_SubTitle").replace("<Player>", firstPlayer.getName())));
+
             nextArena.getPlayers().add(firstPlayer);
             nextArena.getPlayers().add(secondPlayer);
             firstPlayer.teleport(nextArena.getFirstLoc());
