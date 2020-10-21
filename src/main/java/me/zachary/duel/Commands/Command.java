@@ -26,7 +26,6 @@ public class Command extends SpigotCommand {
 
     @Override
     public CommandResult onPlayerExecute(Player player, String[] strings) {
-        String targetName = strings[0];
         if (strings.length == 0 || strings[0].equalsIgnoreCase("help")) {
             for(String message : duel.getConfig().getStringList("HelpCommand")){
                 player.sendMessage(Utils.chat(message));
@@ -72,7 +71,8 @@ public class Command extends SpigotCommand {
 
                 player.sendMessage(Utils.chat(duel.getConfig().getString("Create_Arena").replace("<ArenaName>", arenaName)));
             }
-        }else if (Bukkit.getPlayer(targetName) != null) {
+        }else if (Bukkit.getPlayer(strings[0]) != null) {
+            String targetName = strings[0];
             Player target = Bukkit.getPlayer(targetName);
 
             if (player == target) {
@@ -112,6 +112,11 @@ public class Command extends SpigotCommand {
     @Override
     public List<String> getCommandComplete(Player player, String alias, String[] args) {
         List<String> help = new ArrayList<>();
+        Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
+        Bukkit.getServer().getOnlinePlayers().toArray(players);
+        for (int i = 0; i < players.length; i++) {
+            help.add(players[i].getName());
+        }
         help.add("help");
         if(player.hasPermission("duel.createarena")) help.add("createarena");
         return help;
