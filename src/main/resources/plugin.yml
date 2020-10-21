@@ -4,7 +4,3 @@ main: me.zachary.duel.Duel
 api-version: 1.13
 authors: [ Zach_FR ]
 description: Duel your friends with this plugin
-
-commands:
-  duel:
-    description: Main Command
