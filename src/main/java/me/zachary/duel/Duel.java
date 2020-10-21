@@ -36,7 +36,6 @@ public final class Duel extends SpigotPlugin {
         int pluginId = 9146;
         Metrics metrics = new Metrics(this, pluginId);
 
-        getCommand("duel").setExecutor(this);
         getServer().getPluginManager().registerEvents(new ArenaListeners(this), this);
         new Command(this);
 
