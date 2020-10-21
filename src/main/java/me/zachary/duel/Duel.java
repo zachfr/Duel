@@ -53,7 +53,7 @@ public final class Duel extends SpigotPlugin {
             }
         }
         catch(Exception e) {
-            System.out.print("[Duel] You don't have create arena yet!");
+            log("You don't have create arena yet!");
         }
 
     }
