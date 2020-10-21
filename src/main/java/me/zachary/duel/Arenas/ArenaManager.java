@@ -33,8 +33,8 @@ public class ArenaManager {
             SaveLocations(firstPlayer);
             SaveLocations(secondPlayer);
 
-            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(firstPlayer, Utils.chat(main.getConfig().getString("Duel_Start_Title")), Utils.chat(main.getConfig().getString("Duel_Start_SubTitle").replace("<Player>", secondPlayer.getName())));
-            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(secondPlayer, Utils.chat(main.getConfig().getString("Duel_Start_Title")), Utils.chat(main.getConfig().getString("Duel_Start_SubTitle").replace("<Player>", firstPlayer.getName())));
+            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(firstPlayer, Utils.chat(main.getMessageConfig().getString("Duel_Start_Title")), Utils.chat(main.getMessageConfig().getString("Duel_Start_SubTitle").replace("<Player>", secondPlayer.getName())));
+            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(secondPlayer, Utils.chat(main.getMessageConfig().getString("Duel_Start_Title")), Utils.chat(main.getMessageConfig().getString("Duel_Start_SubTitle").replace("<Player>", firstPlayer.getName())));
 
             nextArena.getPlayers().add(firstPlayer);
             nextArena.getPlayers().add(secondPlayer);
@@ -51,8 +51,8 @@ public class ArenaManager {
             }
 
         }else {
-            firstPlayer.sendMessage(Utils.chat(main.getConfig().getString("No_Arena_Available")));
-            secondPlayer.sendMessage(Utils.chat(main.getConfig().getString("No_Arena_Available")));
+            firstPlayer.sendMessage(Utils.chat(main.getMessageConfig().getString("No_Arena_Available")));
+            secondPlayer.sendMessage(Utils.chat(main.getMessageConfig().getString("No_Arena_Available")));
         }
     }
 

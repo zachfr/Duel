@@ -32,10 +32,10 @@ public class Command extends SpigotCommand {
             }
         }else if (strings[0].equalsIgnoreCase("accept")) {
             if (duel.players.containsKey(player)){
-                player.sendMessage(Utils.chat(duel.getConfig().getString("Start_Duel")));
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Start_Duel")));
 
                 Player firstPlayerTarget = duel.players.get(player);
-                firstPlayerTarget.sendMessage(Utils.chat(duel.getConfig().getString("Start_Duel")));
+                firstPlayerTarget.sendMessage(Utils.chat(duel.getMessageConfig().getString("Start_Duel")));
 
                 duel.arenaManager.joinArena(player, firstPlayerTarget);
 
@@ -44,10 +44,10 @@ public class Command extends SpigotCommand {
             }
         }else if (strings[0].equalsIgnoreCase("deny")) {
             if (duel.players.containsKey(player)){
-                player.sendMessage(Utils.chat(duel.getConfig().getString("Deny_Duel")));
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Deny_Duel")));
 
                 Player firstPlayerTarget = duel.players.get(player);
-                firstPlayerTarget.sendMessage(Utils.chat(duel.getConfig().getString("Player_Deny_Duel").replace("<PlayerDenyDuel>", player.getName())));
+                firstPlayerTarget.sendMessage(Utils.chat(duel.getMessageConfig().getString("Player_Deny_Duel").replace("<PlayerDenyDuel>", player.getName())));
 
                 duel.players.remove(player);
             }
@@ -69,29 +69,31 @@ public class Command extends SpigotCommand {
                 duel.saveArenaConfig();
                 duel.arenaManager.addArena(arena);
 
-                player.sendMessage(Utils.chat(duel.getConfig().getString("Create_Arena").replace("<ArenaName>", arenaName)));
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Create_Arena").replace("<ArenaName>", arenaName)));
             }
         }else if (Bukkit.getPlayer(strings[0]) != null) {
             String targetName = strings[0];
             Player target = Bukkit.getPlayer(targetName);
 
             if (player == target) {
-                player.sendMessage(Utils.chat(duel.getConfig().getString("ask_yourself")));
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("ask_yourself")));
                 return CommandResult.COMPLETED;
             }
 
             if (duel.players.containsKey(target)){
-                player.sendMessage(Utils.chat(duel.getConfig().getString("Player_Already_Have_Requests")));
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Player_Already_Have_Requests")));
                 return CommandResult.COMPLETED;
             }
 
             duel.players.put(target, player);
-            player.sendMessage(Utils.chat(duel.getConfig().getString("Ask_Player").replace("<player>", targetName)));
-            target.sendMessage(Utils.chat(duel.getConfig().getString("Receive_Duel").replace("<player>", player.getName())));
+            player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Ask_Player").replace("<player>", targetName)));
+            target.sendMessage(Utils.chat(duel.getMessageConfig().getString("Receive_Duel").replace("<player>", player.getName())));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + target.getName() + " [\"\",{\"text\":\"Click here to [ACCEPT]\",\"color\":\"green\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/duel accept\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"\",{\"text\":\"Click to accept duel\"}]}}]");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + target.getName() + " [\"\",{\"text\":\"Click here to [DENY]\",\"color\":\"red\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/duel deny\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"\",{\"text\":\"Click to deny duel\"}]}}]");
-        }else
+        }else {
+            player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Player_Not_Connected").replace("<PlayerNotConnected>", strings[0])));
             return CommandResult.COMPLETED;
+        }
         return CommandResult.COMPLETED;
     }
 

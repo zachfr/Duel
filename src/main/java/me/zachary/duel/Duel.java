@@ -4,6 +4,7 @@ import me.zachary.duel.Arenas.Arena;
 import me.zachary.duel.Arenas.ArenaListeners;
 import me.zachary.duel.Arenas.ArenaManager;
 import me.zachary.duel.Commands.Command;
+import me.zachary.duel.Storage.Message;
 import me.zachary.duel.Utils.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,6 +23,7 @@ public final class Duel extends SpigotPlugin {
 
     public Map<Player, Player> players = new HashMap<>();
     public ArenaManager arenaManager = new ArenaManager(this);
+    //public Message message = new Message(this);
     private File arenaFile;
     public YamlConfiguration arenaConfig;
     private Main plugin;
@@ -36,6 +38,7 @@ public final class Duel extends SpigotPlugin {
 
         getServer().getPluginManager().registerEvents(new ArenaListeners(this), this);
         new Command(this);
+        new Message(this);
 
         loadArenaConfig();
         saveDefaultConfig();
@@ -84,6 +87,10 @@ public final class Duel extends SpigotPlugin {
 
     public ArenaManager getArenaManager() {
         return arenaManager;
+    }
+
+    public Message getMessageConfig() {
+        return new Message(this);
     }
 
     public Location parseStringToLoc(String string) {
