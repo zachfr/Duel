@@ -76,7 +76,7 @@ public class Command extends SpigotCommand {
             Player target = Bukkit.getPlayer(targetName);
 
             if (player == target) {
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("ask_yourself")));
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Ask_Yourself")));
                 return CommandResult.COMPLETED;
             }
 
