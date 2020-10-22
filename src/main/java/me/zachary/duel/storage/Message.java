@@ -4,6 +4,9 @@ import me.zachary.duel.Duel;
 import xyz.theprogramsrc.supercoreapi.spigot.SpigotModule;
 import xyz.theprogramsrc.supercoreapi.spigot.utils.storage.SpigotYMLConfig;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Message extends SpigotModule {
     private SpigotYMLConfig cfg;
 
@@ -32,10 +35,21 @@ public class Message extends SpigotModule {
         this.cfg.add("No_Arena_Available", "&cNo arena available!");
         this.cfg.add("Duel_Start_Title", "&6Duel Start!");
         this.cfg.add("Duel_Start_SubTitle", "&eYour duel with &6<Player>");
+        this.cfg.add("HelpCommand", getHelpCommand());
     }
 
     public void getMessages() {
+    }
 
+    private List<String> getHelpCommand() {
+        List<String> help = new ArrayList<>();
+        help.add("&6--------------&e Duel &6----------------");
+        help.add("&e/&rduel <player>");
+        help.add("&e/&rduel <accept/deny>");
+        help.add("&e/&rduel createarena <loc1> <loc2> <ArenaName>");
+        help.add("&e/&rduel createarena <X,Y,Z> <X,Y,Z> <ArenaName>");
+        help.add("&6------------------------------------");
+        return help;
     }
 
     public String getString(String path) {

@@ -1,13 +1,5 @@
 #You can edit messsage in messages.yml file.
 
-HelpCommand:
-  - "&6--------------&e Duel &6----------------"
-  - "&e/&rduel <player>"
-  - "&e/&rduel <accept/deny>"
-  - "&e/&rduel createarena <loc1> <loc2> <ArenaName>"
-  - "&e/&rduel createarena <X,Y,Z> <X,Y,Z> <ArenaName>"
-  - "&6------------------------------------"
-
 Player_Should_PVP_With_Their_Own_Stuff: false
 
 #Stuff for duel.
