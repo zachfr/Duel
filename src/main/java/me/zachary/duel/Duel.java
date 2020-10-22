@@ -117,5 +117,8 @@ public final class Duel extends SpigotPlugin {
         // On plugin load.
     }
 
-
+    @Override
+    public boolean isPaid() {
+        return false;
+    }
 }
