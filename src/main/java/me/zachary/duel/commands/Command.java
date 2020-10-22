@@ -70,7 +70,8 @@ public class Command extends SpigotCommand {
                 duel.arenaManager.addArena(arena);
 
                 player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Create_Arena").replace("<ArenaName>", arenaName)));
-            }
+            }else
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("&4You don't have permission")));
         }else if (Bukkit.getPlayer(strings[0]) != null) {
             String targetName = strings[0];
             Player target = Bukkit.getPlayer(targetName);
