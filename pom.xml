@@ -53,7 +53,7 @@
                         <relocation>
                             <pattern>com.cryptomorin.xseries</pattern>
                             <!-- Be sure to change the package below -->
-                            <shadedPattern>me.zachary.duel.Utils</shadedPattern>
+                            <shadedPattern>me.zachary.duel.utils</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

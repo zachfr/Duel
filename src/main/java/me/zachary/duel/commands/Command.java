@@ -1,8 +1,8 @@
-package me.zachary.duel.Commands;
+package me.zachary.duel.commands;
 
-import me.zachary.duel.Arenas.Arena;
+import me.zachary.duel.arenas.Arena;
 import me.zachary.duel.Duel;
-import me.zachary.duel.Utils.Utils;
+import me.zachary.duel.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

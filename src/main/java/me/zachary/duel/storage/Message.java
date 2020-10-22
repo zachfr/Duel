@@ -1,4 +1,4 @@
-package me.zachary.duel.Storage;
+package me.zachary.duel.storage;
 
 import me.zachary.duel.Duel;
 import xyz.theprogramsrc.supercoreapi.spigot.SpigotModule;

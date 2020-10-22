@@ -1,4 +1,4 @@
-package me.zachary.duel.Arenas;
+package me.zachary.duel.arenas;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

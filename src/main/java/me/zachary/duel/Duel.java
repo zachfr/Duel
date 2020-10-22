@@ -1,11 +1,11 @@
 package me.zachary.duel;
 
-import me.zachary.duel.Arenas.Arena;
-import me.zachary.duel.Arenas.ArenaListeners;
-import me.zachary.duel.Arenas.ArenaManager;
-import me.zachary.duel.Commands.Command;
-import me.zachary.duel.Storage.Message;
-import me.zachary.duel.Utils.Metrics;
+import me.zachary.duel.arenas.Arena;
+import me.zachary.duel.arenas.ArenaListeners;
+import me.zachary.duel.arenas.ArenaManager;
+import me.zachary.duel.commands.Command;
+import me.zachary.duel.storage.Message;
+import me.zachary.duel.utils.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
