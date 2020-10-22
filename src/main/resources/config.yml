@@ -1,11 +1,1 @@
 #You can edit messsage in messages.yml file.
-
-Player_Should_PVP_With_Their_Own_Stuff: false
-
-#Stuff for duel.
-Stuff:
-  Helmet: "DIAMOND_HELMET"
-  Chestplate: "DIAMOND_CHESTPLATE"
-  Leggings: "DIAMOND_LEGGINGS"
-  Boots: "DIAMOND_BOOTS"
-  Sword: "DIAMOND_SWORD"

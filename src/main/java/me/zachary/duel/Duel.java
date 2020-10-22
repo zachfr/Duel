@@ -4,6 +4,7 @@ import me.zachary.duel.arenas.Arena;
 import me.zachary.duel.arenas.ArenaListeners;
 import me.zachary.duel.arenas.ArenaManager;
 import me.zachary.duel.commands.Command;
+import me.zachary.duel.storage.Config;
 import me.zachary.duel.storage.Message;
 import me.zachary.duel.utils.Metrics;
 import org.bukkit.Bukkit;
@@ -38,6 +39,7 @@ public final class Duel extends SpigotPlugin {
         getServer().getPluginManager().registerEvents(new ArenaListeners(this), this);
         new Command(this);
         new Message(this);
+        new Config(this);
 
         loadArenaConfig();
         saveDefaultConfig();
