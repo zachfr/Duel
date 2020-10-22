@@ -23,7 +23,6 @@ public final class Duel extends SpigotPlugin {
 
     public Map<Player, Player> players = new HashMap<>();
     public ArenaManager arenaManager = new ArenaManager(this);
-    //public Message message = new Message(this);
     private File arenaFile;
     public YamlConfiguration arenaConfig;
     private Main plugin;
@@ -108,12 +107,12 @@ public final class Duel extends SpigotPlugin {
 
     @Override
     public void onPluginDisable() {
-        // Plugin shutdown logic
+        // Plugin shutdown logic.
     }
 
     @Override
     public void onPluginLoad() {
-
+        // On plugin load.
     }
 
 
