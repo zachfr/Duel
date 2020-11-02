@@ -40,6 +40,8 @@ public class ArenaManager {
             nextArena.getPlayers().add(secondPlayer);
             firstPlayer.teleport(nextArena.getFirstLoc());
             secondPlayer.teleport(nextArena.getSecondLoc());
+            firstPlayer.setHealth(20);
+            secondPlayer.setHealth(20);
             nextArena.setStarted();
 
             if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {

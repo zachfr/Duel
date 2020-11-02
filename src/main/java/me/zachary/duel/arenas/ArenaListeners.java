@@ -45,6 +45,7 @@ public class ArenaListeners implements Listener {
             if(!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")){
                 main.getArenaManager().restoreInventory(killer);
             }
+            killer.setHealth(20);
             main.getArenaManager().restoreLocations(killer);
 
             if(arena != null) {
