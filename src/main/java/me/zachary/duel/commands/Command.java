@@ -95,6 +95,7 @@ public class Command extends SpigotCommand {
             if (player.hasPermission("duel.reload")) {
                 duel.getConfigFile().getReloadConfig();
                 duel.getMessageConfig().getReloadMessage();
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Succesfull_Reload")));
             }else
                 player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
         } else {

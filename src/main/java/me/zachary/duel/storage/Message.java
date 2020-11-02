@@ -40,6 +40,7 @@ public class Message extends SpigotModule {
         this.cfg.add("No_Arena_Available", "&cNo arena available!");
         this.cfg.add("Duel_Start_Title", "&6Duel Start!");
         this.cfg.add("Duel_Start_SubTitle", "&eYour duel with &6<Player>");
+        this.cfg.add("Succesfull_Reload", "&cYou have successfull reload the config!");
         this.cfg.add("HelpCommand", getHelpCommand());
     }
 
