@@ -6,6 +6,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
@@ -144,12 +148,37 @@ public class ArenaManager {
     }
 
     public static void addStuff(Player player) {
-        player.getInventory().setHelmet(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Helmet"))));
-        player.getInventory().setChestplate(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Chestplate"))));
-        player.getInventory().setLeggings(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Leggings"))));
-        player.getInventory().setBoots(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Boots"))));
+        ItemStack Helmet = new ItemStack(Material.valueOf(main.getConfig().getString("Stuff.Helmet.name")));
+        ItemStack Chestplate = new ItemStack(Material.valueOf(main.getConfig().getString("Stuff.Chestplate.name")));
+        ItemStack Leggings = new ItemStack(Material.valueOf(main.getConfig().getString("Stuff.Leggings.name")));
+        ItemStack Boots = new ItemStack(Material.valueOf(main.getConfig().getString("Stuff.Boots.name")));
+        if(main.getConfig().getString("Stuff.Helmet.enchantment") != null) {
+            com.cryptomorin.xseries.XEnchantment.addEnchantFromString(Helmet, main.getConfig().getString("Stuff.Helmet.enchantment.name") + ", " + main.getConfig().getString("Stuff.Helmet.enchantment.level"));
+        }
+        if(main.getConfig().getString("Stuff.Chestplate.enchantment") != null) {
+            com.cryptomorin.xseries.XEnchantment.addEnchantFromString(Chestplate, main.getConfig().getString("Stuff.Chestplate.enchantment.name") + ", " + main.getConfig().getString("Stuff.Chestplate.enchantment.level"));
+        }
+        if(main.getConfig().getString("Stuff.Leggings.enchantment") != null) {
+            com.cryptomorin.xseries.XEnchantment.addEnchantFromString(Leggings, main.getConfig().getString("Stuff.Leggings.enchantment.name") + ", " + main.getConfig().getString("Stuff.Leggings.enchantment.level"));
+        }
+        if(main.getConfig().getString("Stuff.Boots.enchantment") != null) {
+            com.cryptomorin.xseries.XEnchantment.addEnchantFromString(Boots, main.getConfig().getString("Stuff.Boots.enchantment.name") + ", " + main.getConfig().getString("Stuff.Boots.enchantment.level"));
+        }
 
-        player.getInventory().addItem(Utils.CreateItem(Material.valueOf(main.getConfig().getString("Stuff.Sword"))));
+        player.getInventory().setHelmet(Helmet);
+        player.getInventory().setChestplate(Chestplate);
+        player.getInventory().setLeggings(Leggings);
+        player.getInventory().setBoots(Boots);
+
+        for (int iItem = 0; iItem <= main.getConfig().getString("Stuff.Content").length(); iItem++) {
+            if(main.getConfig().getString("Stuff.Content." + iItem) != null) {
+                ItemStack item = new ItemStack(Material.valueOf(main.getConfig().getString("Stuff.Content." + iItem + ".name")));
+                if(main.getConfig().getString("Stuff.Content." + iItem + ".enchantment") != null) com.cryptomorin.xseries.XEnchantment.addEnchantFromString(item, main.getConfig().getString("Stuff.Content." + iItem + ".enchantment.name") + ", " + main.getConfig().getString("Stuff.Content." + iItem + ".enchantment.level"));
+                if(main.getConfig().getString("Stuff.Content." + iItem + ".amount") != null) item.setAmount(Integer.parseInt(main.getConfig().getString("Stuff.Content." + iItem + ".amount")));
+
+                player.getInventory().addItem(item);
+            }
+        }
     }
 
 
