@@ -71,7 +71,7 @@ public class Command extends SpigotCommand {
 
                 player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Create_Arena").replace("<ArenaName>", arenaName)));
             }else
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("&4You don't have permission")));
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
         }else if (Bukkit.getPlayer(strings[0]) != null) {
             String targetName = strings[0];
             Player target = Bukkit.getPlayer(targetName);
@@ -91,7 +91,13 @@ public class Command extends SpigotCommand {
             target.sendMessage(Utils.chat(duel.getMessageConfig().getString("Receive_Duel").replace("<player>", player.getName())));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + target.getName() + " [\"\",{\"text\":\"Click here to [ACCEPT]\",\"color\":\"green\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/duel accept\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"\",{\"text\":\"Click to accept duel\"}]}}]");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + target.getName() + " [\"\",{\"text\":\"Click here to [DENY]\",\"color\":\"red\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/duel deny\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"\",{\"text\":\"Click to deny duel\"}]}}]");
-        }else {
+        } else if (strings[0].equalsIgnoreCase("reload")) {
+            if (player.hasPermission("duel.reload")) {
+                duel.getConfigFile().getReloadConfig();
+                duel.getMessageConfig().getReloadMessage();
+            }else
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+        } else {
             player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Player_Not_Connected").replace("<PlayerNotConnected>", strings[0])));
             return CommandResult.COMPLETED;
         }
@@ -122,6 +128,7 @@ public class Command extends SpigotCommand {
         }
         help.add("help");
         if(player.hasPermission("duel.createarena")) help.add("createarena");
+        if(player.hasPermission("duel.reload")) help.add("reload");
         return help;
     }
 }

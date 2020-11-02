@@ -21,6 +21,11 @@ public class Message extends SpigotModule {
         this.loadDefaults();
     }
 
+    public void getReloadMessage() {
+        this.cfg.save();
+        this.cfg.reload();
+    }
+
     private void loadDefaults(){
         this.cfg.add("Ask_Yourself", "&cYou can ask Yourself!");
         this.cfg.add("Start_Duel", "&9Duel start!");
@@ -36,9 +41,6 @@ public class Message extends SpigotModule {
         this.cfg.add("Duel_Start_Title", "&6Duel Start!");
         this.cfg.add("Duel_Start_SubTitle", "&eYour duel with &6<Player>");
         this.cfg.add("HelpCommand", getHelpCommand());
-    }
-
-    public void getMessages() {
     }
 
     private List<String> getHelpCommand() {

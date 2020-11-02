@@ -90,6 +90,8 @@ public final class Duel extends SpigotPlugin {
         return arenaManager;
     }
 
+    public Config getConfigFile() { return new Config(this); }
+
     public Message getMessageConfig() {
         return new Message(this);
     }

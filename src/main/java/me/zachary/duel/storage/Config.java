@@ -18,6 +18,12 @@ public class Config extends SpigotModule {
         this.loadDefaults();
     }
 
+    public void getReloadConfig() {
+        this.cfg.save();
+        this.cfg.reload();
+    }
+
+
     private void loadDefaults() {
         this.cfg.getConfig().options().header("You can edit messsage in messages.yml file.\nYou can configure Stuff during duel below.");
         this.cfg.getConfig().options().copyHeader(true);
