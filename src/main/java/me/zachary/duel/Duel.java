@@ -9,6 +9,7 @@ import me.zachary.duel.storage.Message;
 import me.zachary.duel.utils.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -50,7 +51,8 @@ public final class Duel extends SpigotPlugin {
             for(String string : arenaSection.getKeys(false)) {
                 String loc1 = (String) arenaSection.get(string + ".loc1");
                 String loc2 = (String) arenaSection.get(string + ".loc2");
-                Arena arena = new Arena(parseStringToLoc(loc1), parseStringToLoc(loc2));
+                String world = (String) arenaSection.get(string + ".world");
+                Arena arena = new Arena(parseStringToLoc(loc1, world), parseStringToLoc(loc2, world));
                 arenaManager.addArena(arena);
             }
         }
@@ -96,13 +98,13 @@ public final class Duel extends SpigotPlugin {
         return new Message(this);
     }
 
-    public Location parseStringToLoc(String string) {
+    public Location parseStringToLoc(String string, String world) {
         String[] parsedLoc = string.split(",");
         double x = Double.valueOf(parsedLoc[0]);
         double y = Double.valueOf(parsedLoc[1]);
         double z = Double.valueOf(parsedLoc[2]);
 
-        return new Location(Bukkit.getWorld("world"), x,y,z);
+        return new Location(Bukkit.getWorld(world), x,y,z);
     }
 
     public String unparseLocToString(Location loc) {

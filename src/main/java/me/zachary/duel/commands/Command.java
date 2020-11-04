@@ -5,6 +5,7 @@ import me.zachary.duel.Duel;
 import me.zachary.duel.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import xyz.theprogramsrc.supercoreapi.spigot.commands.CommandResult;
 import xyz.theprogramsrc.supercoreapi.spigot.commands.SpigotCommand;
@@ -58,13 +59,15 @@ public class Command extends SpigotCommand {
                     return CommandResult.COMPLETED;
                 }
 
-                Location loc1 = parseStringToLoc(strings[1]);
-                Location loc2 = parseStringToLoc(strings[2]);
+                String world = player.getLocation().getWorld().getName();
+                Location loc1 = parseStringToLoc(strings[1], world);
+                Location loc2 = parseStringToLoc(strings[2], world);
                 Arena arena = new Arena(loc1, loc2);
                 String arenaName = "arena-" + strings[3];
 
                 duel.arenaConfig.set("arenas." + arenaName + ".loc1", strings[1]);
                 duel.arenaConfig.set("arenas." + arenaName + ".loc2", strings[2]);
+                duel.arenaConfig.set("arenas." + arenaName + ".world", world);
 
                 duel.saveArenaConfig();
                 duel.arenaManager.addArena(arena);
@@ -110,13 +113,13 @@ public class Command extends SpigotCommand {
         return CommandResult.COMPLETED;
     }
 
-    public Location parseStringToLoc(String string) {
+    public Location parseStringToLoc(String string, String world) {
         String[] parsedLoc = string.split(",");
         double x = Double.valueOf(parsedLoc[0]);
         double y = Double.valueOf(parsedLoc[1]);
         double z = Double.valueOf(parsedLoc[2]);
 
-        return new Location(Bukkit.getWorld("world"), x,y,z);
+        return new Location(Bukkit.getWorld(world), x,y,z);
     }
 
     @Override
