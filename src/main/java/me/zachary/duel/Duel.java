@@ -28,6 +28,7 @@ public final class Duel extends SpigotPlugin {
     private File arenaFile;
     public YamlConfiguration arenaConfig;
     private Main plugin;
+    private String world;
 
     public Duel() {
     }
@@ -51,7 +52,11 @@ public final class Duel extends SpigotPlugin {
             for(String string : arenaSection.getKeys(false)) {
                 String loc1 = (String) arenaSection.get(string + ".loc1");
                 String loc2 = (String) arenaSection.get(string + ".loc2");
-                String world = (String) arenaSection.get(string + ".world");
+                if(arenaSection.get(string + ".world") != null) {
+                    world = (String) arenaSection.get(string + ".world");
+                }else {
+                    world = "world";
+                }
                 Arena arena = new Arena(parseStringToLoc(loc1, world), parseStringToLoc(loc2, world));
                 arenaManager.addArena(arena);
             }
