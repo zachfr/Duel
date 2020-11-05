@@ -9,6 +9,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import java.util.List;
+
 public class ArenaListeners implements Listener {
 
     private Duel main;
@@ -38,6 +40,7 @@ public class ArenaListeners implements Listener {
 
         if (event.getEntity().getKiller() instanceof Player) {
             event.getDrops().clear();
+            event.setKeepLevel(true);
             Player victim = event.getEntity();
             Player killer = (Player) victim.getKiller();
             Arena arena = main.getArenaManager().getArenaByPlayer(killer);
@@ -48,20 +51,26 @@ public class ArenaListeners implements Listener {
             killer.setHealth(20);
             main.getArenaManager().restoreLocations(killer);
 
-            if(arena != null) {
+            /*if(arena != null) {
                 arena.eliminate(victim);
-            }
+            }*/
         }
     }
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         Player victim = event.getPlayer();
-        if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {
-            main.getArenaManager().restoreInventory(victim);
-            main.getArenaManager().ClearMap(victim);
+        Arena arena = main.getArenaManager().getArenaByPlayer(victim);
+        if (arena != null) {
+            if (arena.isStarted()) {
+                if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {
+                    main.getArenaManager().restoreInventory(victim);
+                    main.getArenaManager().ClearMap(victim);
+                }
+                main.getArenaManager().restoreLocations(victim);
+                arena.eliminate(victim);
+            }
         }
-        main.getArenaManager().restoreLocations(victim);
     }
 
     @EventHandler

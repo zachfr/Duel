@@ -9,7 +9,6 @@ import me.zachary.duel.storage.Message;
 import me.zachary.duel.utils.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -25,6 +24,7 @@ public final class Duel extends SpigotPlugin {
 
     public Map<Player, Player> players = new HashMap<>();
     public ArenaManager arenaManager = new ArenaManager(this);
+    public Arena arena = new Arena(this);
     private File arenaFile;
     public YamlConfiguration arenaConfig;
     private Main plugin;
