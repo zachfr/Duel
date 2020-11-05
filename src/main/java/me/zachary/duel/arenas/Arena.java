@@ -1,5 +1,7 @@
 package me.zachary.duel.arenas;
 
+import me.zachary.duel.Duel;
+import me.zachary.duel.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -13,6 +15,11 @@ public class Arena {
     private Location loc2;
     private List<Player> players;
     private boolean isStarted;
+    private static Duel main;
+
+    public Arena(Duel duel) {
+        this.main = duel;
+    }
 
     public Arena(Location loc1, Location loc2) {
         this.loc1 = loc1;
@@ -45,7 +52,7 @@ public class Arena {
 
         if (players.size() == 1) {
             Player winner = players.get(0);
-            Bukkit.broadcastMessage(winner.getName() + " Win Duel!");
+            Bukkit.broadcastMessage(Utils.chat(main.getMessageConfig().getString("Duel_Win")).replace("<player>", winner.getName()));
             restart();
         }
 
