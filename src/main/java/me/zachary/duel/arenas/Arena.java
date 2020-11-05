@@ -37,7 +37,6 @@ public class Arena {
     }
 
     public void eliminate(Player victim) {
-
         players.remove(victim);
         checkWin();
     }
