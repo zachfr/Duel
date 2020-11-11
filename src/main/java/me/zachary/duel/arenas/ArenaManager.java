@@ -2,6 +2,7 @@ package me.zachary.duel.arenas;
 
 import me.zachary.duel.Duel;
 import me.zachary.duel.utils.Utils;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -40,6 +41,8 @@ public class ArenaManager {
             nextArena.getPlayers().add(secondPlayer);
             firstPlayer.teleport(nextArena.getFirstLoc());
             secondPlayer.teleport(nextArena.getSecondLoc());
+            firstPlayer.setGameMode(GameMode.SURVIVAL);
+            secondPlayer.setGameMode(GameMode.SURVIVAL);
             firstPlayer.setHealth(20);
             secondPlayer.setHealth(20);
             nextArena.setStarted();
