@@ -1,11 +1,10 @@
 package me.zachary.duel.commands;
 
-import me.zachary.duel.arenas.Arena;
 import me.zachary.duel.Duel;
+import me.zachary.duel.arenas.Arena;
 import me.zachary.duel.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import xyz.theprogramsrc.supercoreapi.spigot.commands.CommandResult;
 import xyz.theprogramsrc.supercoreapi.spigot.commands.SpigotCommand;
@@ -28,7 +27,7 @@ public class Command extends SpigotCommand {
     @Override
     public CommandResult onPlayerExecute(Player player, String[] strings) {
         if (strings.length == 0 || strings[0].equalsIgnoreCase("help")) {
-            for(String message : duel.getConfig().getStringList("HelpCommand")){
+            for(String message : duel.getMessageConfig().getStringList("HelpCommand")){
                 player.sendMessage(Utils.chat(message));
             }
         }else if (strings[0].equalsIgnoreCase("accept")) {

@@ -59,4 +59,8 @@ public class Message extends SpigotModule {
     public String getString(String path) {
         return this.cfg.getString(path);
     }
+
+    public List<String> getStringList(String path){
+        return this.cfg.getStringList(path);
+    }
 }
