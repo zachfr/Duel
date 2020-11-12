@@ -109,14 +109,14 @@ public class ArenaManager {
         if(contents != null){
             player.getInventory().setContents(contents);
         }
-        else{//if the player has no inventory contents, clear their inventory
+        else{ //if the player has no inventory contents, clear their inventory
             player.getInventory().clear();
         }
 
         if(armorContents != null){
             player.getInventory().setArmorContents(armorContents);
         }
-        else{//if the player has no armor, set the armor to null
+        else{ //if the player has no armor, set the armor to null
             remArmor(player);
         }
     }
