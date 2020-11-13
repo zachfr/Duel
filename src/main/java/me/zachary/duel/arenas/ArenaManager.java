@@ -2,11 +2,13 @@ package me.zachary.duel.arenas;
 
 import me.zachary.duel.Duel;
 import me.zachary.duel.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 
@@ -138,12 +140,9 @@ public class ArenaManager {
     }
 
     public static void restoreLocations(Player player) {
-        try {
-            Location loc = locations.get(player.getName());
-            player.teleport(loc);
-        } catch (Exception e) {
+        Location loc = locations.get(player.getName());
+        player.teleport(loc);
 
-        }
     }
 
     public static void addStuff(Player player) {

@@ -29,6 +29,7 @@ public final class Duel extends SpigotPlugin {
     public YamlConfiguration arenaConfig;
     private Main plugin;
     private String world;
+    private static Duel duel;
 
     public Duel() {
     }
@@ -37,6 +38,7 @@ public final class Duel extends SpigotPlugin {
     public void onPluginEnable() {
         int pluginId = 9146;
         Metrics metrics = new Metrics(this, pluginId);
+        duel = this;
 
         getServer().getPluginManager().registerEvents(new ArenaListeners(this), this);
         new Command(this);
@@ -129,5 +131,9 @@ public final class Duel extends SpigotPlugin {
     @Override
     public boolean isPaid() {
         return false;
+    }
+
+    public Duel getMain(){
+        return duel;
     }
 }

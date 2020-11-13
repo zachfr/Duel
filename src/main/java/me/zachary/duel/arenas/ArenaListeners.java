@@ -1,6 +1,8 @@
 package me.zachary.duel.arenas;
 
 import me.zachary.duel.Duel;
+import org.bukkit.Bukkit;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,11 +47,18 @@ public class ArenaListeners implements Listener {
             Player killer = (Player) victim.getKiller();
             Arena arena = main.getArenaManager().getArenaByPlayer(killer);
 
-            if(!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")){
-                main.getArenaManager().restoreInventory(killer);
-            }
-            killer.setHealth(20);
-            main.getArenaManager().restoreLocations(killer);
+            com.cryptomorin.xseries.particles.XParticle.circle(3, 5,com.cryptomorin.xseries.particles.ParticleDisplay.display(killer.getLocation(), com.cryptomorin.xseries.particles.XParticle.getParticle(String.valueOf(Particle.EXPLOSION_HUGE))));
+
+            Bukkit.getScheduler().runTaskLater(main.getMain(), new Runnable() {
+                @Override
+                public void run() {
+                    if(!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")){
+                        main.getArenaManager().restoreInventory(killer);
+                    }
+                    killer.setHealth(20);
+                    main.getArenaManager().restoreLocations(killer);
+                }
+            }, 100L);
 
             /*if(arena != null) {
                 arena.eliminate(victim);
@@ -63,11 +72,21 @@ public class ArenaListeners implements Listener {
         Arena arena = main.getArenaManager().getArenaByPlayer(victim);
         if (arena != null) {
             if (arena.isStarted()) {
-                if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {
-                    main.getArenaManager().restoreInventory(victim);
-                    main.getArenaManager().ClearMap(victim);
-                }
-                main.getArenaManager().restoreLocations(victim);
+                Bukkit.getScheduler().runTaskLater(main.getMain(), new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {
+                            main.getArenaManager().restoreInventory(victim);
+                        }
+                        main.getArenaManager().restoreLocations(victim);
+                    }
+                }, 5L);
+                Bukkit.getScheduler().runTaskLater(main.getMain(), new Runnable() {
+                    @Override
+                    public void run() {
+                        main.getArenaManager().ClearMap(victim);
+                    }
+                }, 125L);
                 arena.eliminate(victim);
             }
         }
