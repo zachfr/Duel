@@ -44,5 +44,7 @@ public class Config extends SpigotModule {
         this.cfg.add("Stuff.Content.0.enchantment.level", 1);
         this.cfg.add("Stuff.Content.1.name", "GOLDEN_APPLE");
         this.cfg.add("Stuff.Content.1.amount", 3);
+        this.cfg.add("Particle_When_Player_Win_Duel.Enable", true);
+        this.cfg.add("Particle_When_Player_Win_Duel.Particle", "EXPLOSION_HUGE");
     }
 }
