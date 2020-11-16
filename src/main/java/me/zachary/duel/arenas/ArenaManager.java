@@ -47,6 +47,8 @@ public class ArenaManager {
             secondPlayer.setGameMode(GameMode.SURVIVAL);
             firstPlayer.setHealth(20);
             secondPlayer.setHealth(20);
+            firstPlayer.setFoodLevel(20);
+            secondPlayer.setFoodLevel(20);
             nextArena.setStarted();
 
             if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {
