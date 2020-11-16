@@ -44,7 +44,7 @@ public class ArenaListeners implements Listener {
             event.setKeepLevel(true);
             Player victim = event.getEntity();
             Player killer = (Player) victim.getKiller();
-            victim.sendMessage(Utils.chat(main.getMessageConfig().getString("Duel_Win").replace("<player>", killer.getName())));
+            Bukkit.broadcastMessage(Utils.chat(main.getMessageConfig().getString("Duel_Win")).replace("<winner>", killer.getName()).replace("<loser>", victim.getName()));
             Arena arena = main.getArenaManager().getArenaByPlayer(killer);
 
             if(main.getConfig().getBoolean("Particle_When_Player_Win_Duel.Enable")){
