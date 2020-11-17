@@ -2,13 +2,11 @@ package me.zachary.duel.arenas;
 
 import me.zachary.duel.Duel;
 import me.zachary.duel.utils.Utils;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 

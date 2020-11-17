@@ -12,7 +12,6 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import sun.applet.Main;
 import xyz.theprogramsrc.supercoreapi.spigot.SpigotPlugin;
 
 import java.io.File;
@@ -27,7 +26,7 @@ public final class Duel extends SpigotPlugin {
     public Arena arena = new Arena(this);
     private File arenaFile;
     public YamlConfiguration arenaConfig;
-    private Main plugin;
+    private Duel plugin;
     private String world;
     private static Duel duel;
 

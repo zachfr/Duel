@@ -4,9 +4,6 @@ import me.zachary.duel.Duel;
 import xyz.theprogramsrc.supercoreapi.spigot.SpigotModule;
 import xyz.theprogramsrc.supercoreapi.spigot.utils.storage.SpigotYMLConfig;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Config extends SpigotModule {
     private Duel duel;
     private SpigotYMLConfig cfg;
