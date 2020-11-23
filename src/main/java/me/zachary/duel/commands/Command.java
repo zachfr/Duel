@@ -31,6 +31,10 @@ public class Command extends SpigotCommand {
                 player.sendMessage(Utils.chat(message));
             }
         }else if (strings[0].equalsIgnoreCase("accept")) {
+            if (duel.getConfig().getBoolean("Duel_Accept_Permission") && !player.hasPermission("duel.accept")){
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                return CommandResult.COMPLETED;
+            }
             if (duel.players.containsKey(player)){
                 player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Start_Duel")));
 
@@ -43,6 +47,10 @@ public class Command extends SpigotCommand {
 
             }
         }else if (strings[0].equalsIgnoreCase("deny")) {
+            if (duel.getConfig().getBoolean("Duel_Deny_Permission") && !player.hasPermission("duel.deny")){
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                return CommandResult.COMPLETED;
+            }
             if (duel.players.containsKey(player)){
                 player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Deny_Duel")));
 
@@ -75,6 +83,10 @@ public class Command extends SpigotCommand {
             }else
                 player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
         }else if (Bukkit.getPlayer(strings[0]) != null) {
+            if (duel.getConfig().getBoolean("Duel_<Player>_Permission") && !player.hasPermission("duel.askduel")){
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                return CommandResult.COMPLETED;
+            }
             String targetName = strings[0];
             Player target = Bukkit.getPlayer(targetName);
 
