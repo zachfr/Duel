@@ -29,8 +29,10 @@ public class ArenaListeners implements Listener {
 
             Arena victimArena = main.getArenaManager().getArenaByPlayer(victim);
 
-            if (victimArena == null || !victimArena.getPlayers().contains(damager)) {
-                event.setCancelled(true);
+            if(main.getConfig().getBoolean("Should_PvP_Is_Only_Enable_During_Duel")){
+                if (victimArena == null || !victimArena.getPlayers().contains(damager)) {
+                    event.setCancelled(true);
+                }
             }
         }
 
