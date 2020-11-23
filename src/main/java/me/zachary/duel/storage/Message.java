@@ -27,7 +27,7 @@ public class Message extends SpigotModule {
     }
 
     private void loadDefaults(){
-        this.cfg.getConfig().options().header("GERMAN TRANSLATION: https://pastebin.com/KXtcuzFP\n");
+        this.cfg.getConfig().options().header("GERMAN TRANSLATION: https://pastebin.com/7KZZDM5Y\n");
         this.cfg.getConfig().options().copyHeader(true);
         this.cfg.add("Ask_Yourself", "&cYou can ask Yourself!");
         this.cfg.add("Start_Duel", "&9Duel start!");
