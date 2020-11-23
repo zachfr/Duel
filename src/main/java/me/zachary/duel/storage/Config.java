@@ -28,6 +28,7 @@ public class Config extends SpigotModule {
         this.cfg.getConfig().options().header("You can edit messsage in messages.yml file.\nYou can configure Stuff during duel below.");
         this.cfg.getConfig().options().copyHeader(true);
         this.cfg.add("Player_Should_PVP_With_Their_Own_Stuff", false);
+        this.cfg.add("Should_Killed_Player_Should_Drop_There_Stuff", false);
         this.cfg.add("Stuff.Helmet.name", "DIAMOND_HELMET");
         this.cfg.add("Stuff.Helmet.enchantment.name", "PROTECTION");
         this.cfg.add("Stuff.Helmet.enchantment.level", 1);
@@ -43,5 +44,9 @@ public class Config extends SpigotModule {
         this.cfg.add("Stuff.Content.1.amount", 3);
         this.cfg.add("Particle_When_Player_Win_Duel.Enable", true);
         this.cfg.add("Particle_When_Player_Win_Duel.Particle", "EXPLOSION_HUGE");
+
+        this.cfg.add("Duel_<Player>_Permission", false);
+        this.cfg.add("Duel_Accept_Permission", false);
+        this.cfg.add("Duel_Deny_Permission", false);
     }
 }

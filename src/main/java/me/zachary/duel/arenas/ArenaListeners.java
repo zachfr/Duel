@@ -40,7 +40,9 @@ public class ArenaListeners implements Listener {
     public void onKill(PlayerDeathEvent event){
 
         if (event.getEntity().getKiller() instanceof Player) {
-            event.getDrops().clear();
+            if(!main.getConfig().getBoolean("Should_Killed_Player_Should_Drop_There_Stuff")){
+                event.getDrops().clear();
+            }
             event.setKeepLevel(true);
             Player victim = event.getEntity();
             Player killer = (Player) victim.getKiller();
