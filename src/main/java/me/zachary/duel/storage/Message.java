@@ -59,6 +59,8 @@ public class Message extends SpigotModule {
         help.add("&e/&rduel <accept/deny>");
         help.add("&e/&rduel createarena <loc1> <loc2> <ArenaName>");
         help.add("&e/&rduel createarena <X,Y,Z> <X,Y,Z> <ArenaName>");
+        help.add("&e/&rduel deletearena <ArenaName>");
+        help.add("&e/&rduel listarena");
         help.add("&6------------------------------------");
         return help;
     }
