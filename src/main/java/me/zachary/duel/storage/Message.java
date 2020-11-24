@@ -44,6 +44,8 @@ public class Message extends SpigotModule {
         this.cfg.add("Duel_Start_SubTitle", "&eYour duel with &6<Player>");
         this.cfg.add("Succesfull_Reload", "&cYou have successfull reload the config!");
         this.cfg.add("Broadcast_Duel_Win", "&e<winner> &6won the duel against &e<loser>&6!");
+        this.cfg.add("Click_Button_Accept", "&aClick to accept duel");
+        this.cfg.add("Click_Button_Deny", "&cClick to deny duel");
         this.cfg.add("HelpCommand", getHelpCommand());
     }
 

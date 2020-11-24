@@ -3,6 +3,8 @@ package me.zachary.duel.commands;
 import me.zachary.duel.Duel;
 import me.zachary.duel.arenas.Arena;
 import me.zachary.duel.utils.Utils;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -101,10 +103,15 @@ public class Command extends SpigotCommand {
             }
 
             duel.players.put(target, player);
+            TextComponent acceptbutton = new TextComponent(Utils.chat(duel.getMessageConfig().getString("Click_Button_Accept")));
+            acceptbutton.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/duel accept" ) );
+            TextComponent denybutton = new TextComponent(Utils.chat(duel.getMessageConfig().getString("Click_Button_Deny")));
+            denybutton.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/duel deny" ) );
+
             player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Ask_Player").replace("<player>", targetName)));
             target.sendMessage(Utils.chat(duel.getMessageConfig().getString("Receive_Duel").replace("<player>", player.getName())));
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + target.getName() + " [\"\",{\"text\":\"Click here to [ACCEPT]\",\"color\":\"green\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/duel accept\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"\",{\"text\":\"Click to accept duel\"}]}}]");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + target.getName() + " [\"\",{\"text\":\"Click here to [DENY]\",\"color\":\"red\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/duel deny\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":[\"\",{\"text\":\"Click to deny duel\"}]}}]");
+            target.spigot().sendMessage(acceptbutton);
+            target.spigot().sendMessage(denybutton);
         } else if (strings[0].equalsIgnoreCase("reload")) {
             if (player.hasPermission("duel.reload")) {
                 duel.getConfigFile().getReloadConfig();
