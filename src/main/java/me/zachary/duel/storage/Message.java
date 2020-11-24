@@ -46,6 +46,9 @@ public class Message extends SpigotModule {
         this.cfg.add("Broadcast_Duel_Win", "&e<winner> &6won the duel against &e<loser>&6!");
         this.cfg.add("Click_Button_Accept", "&aClick to accept duel");
         this.cfg.add("Click_Button_Deny", "&cClick to deny duel");
+        this.cfg.add("Succesfull_Delete_Arena", "&6You have been delete arena: &e<Arena>");
+        this.cfg.add("No_Arena_Found", "&6No arena is found.");
+        this.cfg.add("No_Argument_Delete_Arena", "&6Please enter a arena to delete.");
         this.cfg.add("HelpCommand", getHelpCommand());
     }
 

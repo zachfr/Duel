@@ -135,4 +135,8 @@ public final class Duel extends SpigotPlugin {
     public Duel getMain(){
         return duel;
     }
+
+    public ConfigurationSection configurationSection(){
+        return arenaConfig.getConfigurationSection("arenas");
+    }
 }

@@ -2,6 +2,7 @@ package me.zachary.duel.arenas;
 
 import me.zachary.duel.Duel;
 import me.zachary.duel.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,6 +22,30 @@ public class ArenaManager {
 
     public ArenaManager(Duel duel) {
         this.main = duel;
+    }
+
+    public void clearArena(){
+        this.arenas.clear();
+    }
+
+    public void createArena(){
+        String world;
+        try {
+            for(String string : main.configurationSection().getKeys(false)) {
+                String loc1 = (String) main.configurationSection().get(string + ".loc1");
+                String loc2 = (String) main.configurationSection().get(string + ".loc2");
+                if(main.configurationSection().get(string + ".world") != null) {
+                    world = (String) main.configurationSection().get(string + ".world");
+                }else {
+                    world = "world";
+                }
+                Arena arena = new Arena(parseStringToLoc(loc1, world), parseStringToLoc(loc2, world));
+                this.addArena(arena);
+            }
+        }
+        catch(Exception e) {
+            System.out.println("You don't have create arena yet!");
+        }
     }
 
     public void addArena(Arena arena) {
@@ -177,6 +202,15 @@ public class ArenaManager {
                 player.getInventory().addItem(item);
             }
         }
+    }
+
+    public Location parseStringToLoc(String string, String world) {
+        String[] parsedLoc = string.split(",");
+        double x = Double.valueOf(parsedLoc[0]);
+        double y = Double.valueOf(parsedLoc[1]);
+        double z = Double.valueOf(parsedLoc[2]);
+
+        return new Location(Bukkit.getWorld(world), x,y,z);
     }
 
 }

@@ -14,6 +14,7 @@ import xyz.theprogramsrc.supercoreapi.spigot.utils.SpigotConsole;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Command extends SpigotCommand {
     private Duel duel;
@@ -72,7 +73,7 @@ public class Command extends SpigotCommand {
                 Location loc1 = parseStringToLoc(strings[1], world);
                 Location loc2 = parseStringToLoc(strings[2], world);
                 Arena arena = new Arena(loc1, loc2);
-                String arenaName = "arena-" + strings[3];
+                String arenaName = strings[3];
 
                 duel.arenaConfig.set("arenas." + arenaName + ".loc1", strings[1]);
                 duel.arenaConfig.set("arenas." + arenaName + ".loc2", strings[2]);
@@ -82,6 +83,34 @@ public class Command extends SpigotCommand {
                 duel.arenaManager.addArena(arena);
 
                 player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Create_Arena").replace("<ArenaName>", arenaName)));
+            }else
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+        }else if(strings[0].equalsIgnoreCase("deletearena")){
+            if(player.hasPermission("duel.deletearena")){
+                if(strings.length <= 1){
+                    player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Argument_Delete_Arena")));
+                    return CommandResult.COMPLETED;
+                }
+                for(String string : duel.configurationSection().getKeys(false)) {
+                    if(Objects.equals(string, strings[1])){
+                        duel.configurationSection().set(string, null);
+                        duel.saveArenaConfig();
+                        player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Succesfull_Delete_Arena").replace("<Arena>", strings[1])));
+                    }
+                }
+                duel.getArenaManager().clearArena();
+                duel.getArenaManager().createArena();
+            }else
+                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+        }else if(strings[0].equalsIgnoreCase("listarena")){
+            if(player.hasPermission("duel.listarena")){
+                if(duel.configurationSection().getKeys(false).isEmpty()){
+                    player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Arena_Found")));
+                    return CommandResult.COMPLETED;
+                }
+                for(String string : duel.configurationSection().getKeys(false)) {
+                    player.sendMessage(string);
+                }
             }else
                 player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
         }else if (Bukkit.getPlayer(strings[0]) != null) {
@@ -150,6 +179,8 @@ public class Command extends SpigotCommand {
         }
         help.add("help");
         if(player.hasPermission("duel.createarena")) help.add("createarena");
+        if(player.hasPermission("duel.deletearena")) help.add("deletearena");
+        if(player.hasPermission("duel.listarena")) help.add("listarena");
         if(player.hasPermission("duel.reload")) help.add("reload");
         return help;
     }
