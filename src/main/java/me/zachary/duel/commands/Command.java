@@ -104,7 +104,7 @@ public class Command extends SpigotCommand {
                 player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
         }else if(strings[0].equalsIgnoreCase("listarena")){
             if(player.hasPermission("duel.listarena")){
-                if(duel.configurationSection().getKeys(false).isEmpty()){
+                if(!duel.arenaConfig.contains("arenas") || duel.configurationSection().getKeys(false).isEmpty()){
                     player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Arena_Found")));
                     return CommandResult.COMPLETED;
                 }
