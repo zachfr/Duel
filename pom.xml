@@ -129,7 +129,7 @@
         <dependency>
             <groupId>xyz.theprogramsrc</groupId>
             <artifactId>SuperCoreAPI</artifactId>
-            <version>4.2.13</version>
+            <version>4.3.0</version>
         </dependency>
     </dependencies>
 </project>
