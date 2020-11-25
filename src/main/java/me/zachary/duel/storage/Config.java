@@ -4,6 +4,9 @@ import me.zachary.duel.Duel;
 import xyz.theprogramsrc.supercoreapi.spigot.SpigotModule;
 import xyz.theprogramsrc.supercoreapi.spigot.utils.storage.SpigotYMLConfig;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Config extends SpigotModule {
     private Duel duel;
     private SpigotYMLConfig cfg;
@@ -48,5 +51,23 @@ public class Config extends SpigotModule {
         this.cfg.add("Duel_<Player>_Permission", false);
         this.cfg.add("Duel_Accept_Permission", false);
         this.cfg.add("Duel_Deny_Permission", false);
+        this.cfg.add("HelpCommand", getHelpCommand());
+    }
+
+    private List<String> getHelpCommand() {
+        List<String> help = new ArrayList<>();
+        help.add("&6--------------&e Duel &6----------------");
+        help.add("&e/&rduel <player>");
+        help.add("&e/&rduel <accept/deny>");
+        help.add("&e/&rduel createarena <loc1> <loc2> <ArenaName>");
+        help.add("&e/&rduel createarena <X,Y,Z> <X,Y,Z> <ArenaName>");
+        help.add("&e/&rduel deletearena <ArenaName>");
+        help.add("&e/&rduel listarena");
+        help.add("&6------------------------------------");
+        return help;
+    }
+
+    public List<String> getStringList(String path){
+        return this.cfg.getStringList(path);
     }
 }

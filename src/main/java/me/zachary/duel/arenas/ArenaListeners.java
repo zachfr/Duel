@@ -1,6 +1,7 @@
 package me.zachary.duel.arenas;
 
 import me.zachary.duel.Duel;
+import me.zachary.duel.Translation;
 import me.zachary.duel.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
@@ -48,7 +49,7 @@ public class ArenaListeners implements Listener {
             event.setKeepLevel(true);
             Player victim = event.getEntity();
             Player killer = (Player) victim.getKiller();
-            Bukkit.broadcastMessage(Utils.chat(main.getMessageConfig().getString("Broadcast_Duel_Win")).replace("<winner>", killer.getName()).replace("<loser>", victim.getName()));
+            Bukkit.broadcastMessage(Utils.chat(Translation.Broadcast_Duel_Win.toString().replace("<winner>", killer.getName()).replace("<loser>", victim.getName())));
             Arena arena = main.getArenaManager().getArenaByPlayer(killer);
 
             if(main.getConfig().getBoolean("Particle_When_Player_Win_Duel.Enable")){

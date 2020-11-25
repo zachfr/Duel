@@ -1,6 +1,7 @@
 package me.zachary.duel.arenas;
 
 import me.zachary.duel.Duel;
+import me.zachary.duel.Translation;
 import me.zachary.duel.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -59,8 +60,8 @@ public class ArenaManager {
             SaveLocations(firstPlayer);
             SaveLocations(secondPlayer);
 
-            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(firstPlayer, Utils.chat(main.getMessageConfig().getString("Duel_Start_Title")), Utils.chat(main.getMessageConfig().getString("Duel_Start_SubTitle").replace("<Player>", secondPlayer.getName())));
-            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(secondPlayer, Utils.chat(main.getMessageConfig().getString("Duel_Start_Title")), Utils.chat(main.getMessageConfig().getString("Duel_Start_SubTitle").replace("<Player>", firstPlayer.getName())));
+            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(firstPlayer, Utils.chat(Translation.Duel_Start_Title.options().get()), Utils.chat(Translation.Duel_Start_SubTitle.options().get().replace("<Player>", secondPlayer.getName())));
+            xyz.theprogramsrc.supercoreapi.spigot.packets.Title.sendTitle(secondPlayer, Utils.chat(Translation.Duel_Start_Title.options().get()), Utils.chat(Translation.Duel_Start_SubTitle.options().get().replace("<Player>", firstPlayer.getName())));
 
             nextArena.getPlayers().add(firstPlayer);
             nextArena.getPlayers().add(secondPlayer);
@@ -83,8 +84,8 @@ public class ArenaManager {
             }
 
         }else {
-            firstPlayer.sendMessage(Utils.chat(main.getMessageConfig().getString("No_Arena_Available")));
-            secondPlayer.sendMessage(Utils.chat(main.getMessageConfig().getString("No_Arena_Available")));
+            firstPlayer.sendMessage(Utils.chat(Translation.No_Arena_Available.toString()));
+            secondPlayer.sendMessage(Utils.chat(Translation.No_Arena_Available.toString()));
         }
     }
 

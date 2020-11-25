@@ -5,13 +5,13 @@ import me.zachary.duel.arenas.ArenaListeners;
 import me.zachary.duel.arenas.ArenaManager;
 import me.zachary.duel.commands.Command;
 import me.zachary.duel.storage.Config;
-import me.zachary.duel.storage.Message;
 import me.zachary.duel.utils.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import xyz.theprogramsrc.supercoreapi.global.translations.TranslationDownloader;
 import xyz.theprogramsrc.supercoreapi.spigot.SpigotPlugin;
 
 import java.io.File;
@@ -41,8 +41,11 @@ public final class Duel extends SpigotPlugin {
 
         getServer().getPluginManager().registerEvents(new ArenaListeners(this), this);
         new Command(this);
-        new Message(this);
         new Config(this);
+
+        this.getTranslationManager().registerTranslation(Translation.class);
+        TranslationDownloader.downloadFromGitHub(this, "zachfr", "Duel-Translations", "Translations");
+        log("Successfully loaded translations: " + getLanguage());
 
         loadArenaConfig();
         saveDefaultConfig();
@@ -99,10 +102,6 @@ public final class Duel extends SpigotPlugin {
     }
 
     public Config getConfigFile() { return new Config(this); }
-
-    public Message getMessageConfig() {
-        return new Message(this);
-    }
 
     public Location parseStringToLoc(String string, String world) {
         String[] parsedLoc = string.split(",");

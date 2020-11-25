@@ -50,7 +50,6 @@ public class Arena {
 
         if (players.size() == 1) {
             Player winner = players.get(0);
-            //Bukkit.broadcastMessage(Utils.chat(main.getMessageConfig().getString("Duel_Win")).replace("<winner>", winner.getName()).replace("<loser>", victim.getName()));
             restart();
         }
 

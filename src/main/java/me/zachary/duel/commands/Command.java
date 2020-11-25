@@ -1,6 +1,7 @@
 package me.zachary.duel.commands;
 
 import me.zachary.duel.Duel;
+import me.zachary.duel.Translation;
 import me.zachary.duel.arenas.Arena;
 import me.zachary.duel.utils.Utils;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -30,19 +31,19 @@ public class Command extends SpigotCommand {
     @Override
     public CommandResult onPlayerExecute(Player player, String[] strings) {
         if (strings.length == 0 || strings[0].equalsIgnoreCase("help")) {
-            for(String message : duel.getMessageConfig().getStringList("HelpCommand")){
+            for(String message : duel.getConfig().getStringList("HelpCommand")){
                 player.sendMessage(Utils.chat(message));
             }
         }else if (strings[0].equalsIgnoreCase("accept")) {
             if (duel.getConfig().getBoolean("Duel_Accept_Permission") && !player.hasPermission("duel.accept")){
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
                 return CommandResult.COMPLETED;
             }
             if (duel.players.containsKey(player)){
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Start_Duel")));
+                player.sendMessage(Utils.chat(Translation.Start_Duel.toString()));
 
                 Player firstPlayerTarget = duel.players.get(player);
-                firstPlayerTarget.sendMessage(Utils.chat(duel.getMessageConfig().getString("Start_Duel")));
+                firstPlayerTarget.sendMessage(Utils.chat(Translation.Start_Duel.toString()));
 
                 duel.arenaManager.joinArena(player, firstPlayerTarget);
 
@@ -51,14 +52,14 @@ public class Command extends SpigotCommand {
             }
         }else if (strings[0].equalsIgnoreCase("deny")) {
             if (duel.getConfig().getBoolean("Duel_Deny_Permission") && !player.hasPermission("duel.deny")){
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
                 return CommandResult.COMPLETED;
             }
             if (duel.players.containsKey(player)){
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Deny_Duel")));
+                player.sendMessage(Utils.chat(Translation.Deny_Duel.toString()));
 
                 Player firstPlayerTarget = duel.players.get(player);
-                firstPlayerTarget.sendMessage(Utils.chat(duel.getMessageConfig().getString("Player_Deny_Duel").replace("<PlayerDenyDuel>", player.getName())));
+                firstPlayerTarget.sendMessage(Utils.chat(Translation.Player_Deny_Duel.toString().replace("<PlayerDenyDuel>", player.getName())));
 
                 duel.players.remove(player);
             }
@@ -82,74 +83,73 @@ public class Command extends SpigotCommand {
                 duel.saveArenaConfig();
                 duel.arenaManager.addArena(arena);
 
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Create_Arena").replace("<ArenaName>", arenaName)));
+                player.sendMessage(Utils.chat(Translation.Create_Arena.toString().replace("<ArenaName>", arenaName)));
             }else
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
         }else if(strings[0].equalsIgnoreCase("deletearena")){
             if(player.hasPermission("duel.deletearena")){
                 if(strings.length <= 1){
-                    player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Argument_Delete_Arena")));
+                    player.sendMessage(Utils.chat(Translation.No_Argument_Delete_Arena.toString()));
                     return CommandResult.COMPLETED;
                 }
                 for(String string : duel.configurationSection().getKeys(false)) {
                     if(Objects.equals(string, strings[1])){
                         duel.configurationSection().set(string, null);
                         duel.saveArenaConfig();
-                        player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Succesfull_Delete_Arena").replace("<Arena>", strings[1])));
+                        player.sendMessage(Utils.chat(Translation.Succesfull_Delete_Arena.toString().replace("<Arena>", strings[1])));
                     }
                 }
                 duel.getArenaManager().clearArena();
                 duel.getArenaManager().createArena();
             }else
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
         }else if(strings[0].equalsIgnoreCase("listarena")){
             if(player.hasPermission("duel.listarena")){
                 if(!duel.arenaConfig.contains("arenas") || duel.configurationSection().getKeys(false).isEmpty()){
-                    player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Arena_Found")));
+                    player.sendMessage(Utils.chat(Translation.No_Arena_Found.toString()));
                     return CommandResult.COMPLETED;
                 }
                 for(String string : duel.configurationSection().getKeys(false)) {
                     player.sendMessage(string);
                 }
             }else
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
         }else if (Bukkit.getPlayer(strings[0]) != null) {
             if (duel.getConfig().getBoolean("Duel_<Player>_Permission") && !player.hasPermission("duel.askduel")){
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
                 return CommandResult.COMPLETED;
             }
             String targetName = strings[0];
             Player target = Bukkit.getPlayer(targetName);
 
             if (player == target) {
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Ask_Yourself")));
+                player.sendMessage(Utils.chat(Translation.Ask_Yourself.toString()));
                 return CommandResult.COMPLETED;
             }
 
             if (duel.players.containsKey(target)){
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Player_Already_Have_Requests")));
+                player.sendMessage(Utils.chat(Translation.Player_Already_Have_Requests.toString()));
                 return CommandResult.COMPLETED;
             }
 
             duel.players.put(target, player);
-            TextComponent acceptbutton = new TextComponent(Utils.chat(duel.getMessageConfig().getString("Click_Button_Accept")));
+            TextComponent acceptbutton = new TextComponent(Utils.chat(Translation.Click_Button_Accept.options().get()));
             acceptbutton.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/duel accept" ) );
-            TextComponent denybutton = new TextComponent(Utils.chat(duel.getMessageConfig().getString("Click_Button_Deny")));
+            TextComponent denybutton = new TextComponent(Utils.chat(Translation.Click_Button_Deny.options().get()));
             denybutton.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/duel deny" ) );
 
-            player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Ask_Player").replace("<player>", targetName)));
-            target.sendMessage(Utils.chat(duel.getMessageConfig().getString("Receive_Duel").replace("<player>", player.getName())));
+            player.sendMessage(Utils.chat(Translation.Ask_Player.toString().replace("<player>", targetName)));
+            target.sendMessage(Utils.chat(Translation.Receive_Duel.toString().replace("<player>", player.getName())));
             target.spigot().sendMessage(acceptbutton);
             target.spigot().sendMessage(denybutton);
         } else if (strings[0].equalsIgnoreCase("reload")) {
             if (player.hasPermission("duel.reload")) {
                 duel.getConfigFile().getReloadConfig();
-                duel.getMessageConfig().getReloadMessage();
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Succesfull_Reload")));
+                player.sendMessage(Utils.chat(Translation.Succesfull_Reload.toString()));
             }else
-                player.sendMessage(Utils.chat(duel.getMessageConfig().getString("No_Permission")));
+                player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
         } else {
-            player.sendMessage(Utils.chat(duel.getMessageConfig().getString("Player_Not_Connected").replace("<PlayerNotConnected>", strings[0])));
+            player.sendMessage(Utils.chat(Translation.Player_Not_Connected.toString().replace("<PlayerNotConnected>", strings[0])));
             return CommandResult.COMPLETED;
         }
         return CommandResult.COMPLETED;
