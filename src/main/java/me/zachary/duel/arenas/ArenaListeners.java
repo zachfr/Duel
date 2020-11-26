@@ -43,29 +43,32 @@ public class ArenaListeners implements Listener {
     public void onKill(PlayerDeathEvent event){
 
         if (event.getEntity().getKiller() instanceof Player) {
+            Player victim = event.getEntity();
+            Player killer = (Player) victim.getKiller();
+            Arena arenas = main.getArenaManager().getArenaByPlayer(killer);
             if(!main.getConfig().getBoolean("Should_Killed_Player_Should_Drop_There_Stuff")){
                 event.getDrops().clear();
             }
-            event.setKeepLevel(true);
-            Player victim = event.getEntity();
-            Player killer = (Player) victim.getKiller();
-            Bukkit.broadcastMessage(Utils.chat(Translation.Broadcast_Duel_Win.toString().replace("<winner>", killer.getName()).replace("<loser>", victim.getName())));
-            Arena arena = main.getArenaManager().getArenaByPlayer(killer);
+            if (arenas != null){
+                event.setKeepLevel(true);
+                Bukkit.broadcastMessage(Utils.chat(Translation.Broadcast_Duel_Win.toString().replace("<winner>", killer.getName()).replace("<loser>", victim.getName())));
+                Arena arena = main.getArenaManager().getArenaByPlayer(killer);
 
-            if(main.getConfig().getBoolean("Particle_When_Player_Win_Duel.Enable") && !(ReflectionUtils.VERSION.contains("1_8") || ReflectionUtils.VERSION.contains("1_9"))){
-                com.cryptomorin.xseries.particles.XParticle.circle(3, 5,com.cryptomorin.xseries.particles.ParticleDisplay.display(killer.getLocation(), com.cryptomorin.xseries.particles.XParticle.getParticle(main.getConfig().getString("Particle_When_Player_Win_Duel.Particle"))));
-            }
-
-            Bukkit.getScheduler().runTaskLater(main.getMain(), new Runnable() {
-                @Override
-                public void run() {
-                    if(!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")){
-                        main.getArenaManager().restoreInventory(killer);
-                    }
-                    killer.setHealth(20);
-                    main.getArenaManager().restoreLocations(killer);
+                if(main.getConfig().getBoolean("Particle_When_Player_Win_Duel.Enable") && !(ReflectionUtils.VERSION.contains("1_8") || ReflectionUtils.VERSION.contains("1_9"))){
+                    com.cryptomorin.xseries.particles.XParticle.circle(3, 5,com.cryptomorin.xseries.particles.ParticleDisplay.display(killer.getLocation(), com.cryptomorin.xseries.particles.XParticle.getParticle(main.getConfig().getString("Particle_When_Player_Win_Duel.Particle"))));
                 }
-            }, 100L);
+
+                Bukkit.getScheduler().runTaskLater(main.getMain(), new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")){
+                            main.getArenaManager().restoreInventory(killer);
+                        }
+                        killer.setHealth(20);
+                        main.getArenaManager().restoreLocations(killer);
+                    }
+                }, 100L);
+            }
 
             /*if(arena != null) {
                 arena.eliminate(victim);
