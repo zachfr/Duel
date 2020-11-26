@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import xyz.theprogramsrc.supercoreapi.spigot.utils.ReflectionUtils;
@@ -99,6 +100,15 @@ public class ArenaListeners implements Listener {
                 }, 125L);
                 arena.eliminate(victim);
             }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerCommand(PlayerCommandPreprocessEvent event){
+        Player player = event.getPlayer();
+        Arena arena = main.getArenaManager().getArenaByPlayer(player);
+        if(arena != null){
+            event.setCancelled(true);
         }
     }
 
