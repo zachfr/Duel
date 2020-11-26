@@ -13,6 +13,7 @@ import xyz.theprogramsrc.supercoreapi.spigot.commands.CommandResult;
 import xyz.theprogramsrc.supercoreapi.spigot.commands.SpigotCommand;
 import xyz.theprogramsrc.supercoreapi.spigot.utils.SpigotConsole;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -144,7 +145,8 @@ public class Command extends SpigotCommand {
             target.spigot().sendMessage(denybutton);
         } else if (strings[0].equalsIgnoreCase("reload")) {
             if (player.hasPermission("duel.reload")) {
-                duel.getConfigFile().getReloadConfig();
+                duel.saveDefaultConfig();
+                duel.reloadConfig();
                 player.sendMessage(Utils.chat(Translation.Succesfull_Reload.toString()));
             }else
                 player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
