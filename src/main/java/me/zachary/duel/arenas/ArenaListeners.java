@@ -4,7 +4,6 @@ import me.zachary.duel.Duel;
 import me.zachary.duel.Translation;
 import me.zachary.duel.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import xyz.theprogramsrc.supercoreapi.spigot.utils.ReflectionUtils;
 
 public class ArenaListeners implements Listener {
 
@@ -52,8 +52,8 @@ public class ArenaListeners implements Listener {
             Bukkit.broadcastMessage(Utils.chat(Translation.Broadcast_Duel_Win.toString().replace("<winner>", killer.getName()).replace("<loser>", victim.getName())));
             Arena arena = main.getArenaManager().getArenaByPlayer(killer);
 
-            if(main.getConfig().getBoolean("Particle_When_Player_Win_Duel.Enable")){
-                com.cryptomorin.xseries.particles.XParticle.circle(3, 5,com.cryptomorin.xseries.particles.ParticleDisplay.display(killer.getLocation(), com.cryptomorin.xseries.particles.XParticle.getParticle(String.valueOf(Particle.valueOf(main.getConfig().getString("Particle_When_Player_Win_Duel.Particle"))))));
+            if(main.getConfig().getBoolean("Particle_When_Player_Win_Duel.Enable") && !(ReflectionUtils.VERSION.contains("1_8") || ReflectionUtils.VERSION.contains("1_9"))){
+                com.cryptomorin.xseries.particles.XParticle.circle(3, 5,com.cryptomorin.xseries.particles.ParticleDisplay.display(killer.getLocation(), com.cryptomorin.xseries.particles.XParticle.getParticle(main.getConfig().getString("Particle_When_Player_Win_Duel.Particle"))));
             }
 
             Bukkit.getScheduler().runTaskLater(main.getMain(), new Runnable() {
