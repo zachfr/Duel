@@ -3,4 +3,5 @@ version: ${project.version}
 main: me.zachary.duel.Duel
 api-version: 1.13
 authors: [ Zach_FR ]
+softdepend: [ CrackShot ]
 description: Duel your friends with this plugin

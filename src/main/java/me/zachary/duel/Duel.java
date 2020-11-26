@@ -1,5 +1,6 @@
 package me.zachary.duel;
 
+import com.shampaggon.crackshot.CSUtility;
 import me.zachary.duel.arenas.Arena;
 import me.zachary.duel.arenas.ArenaListeners;
 import me.zachary.duel.arenas.ArenaManager;
@@ -133,6 +134,13 @@ public final class Duel extends SpigotPlugin {
 
     public Duel getMain(){
         return duel;
+    }
+
+    public CSUtility getcsUtility(){
+        if(Bukkit.getPluginManager().getPlugin("CrackShot") != null){
+            return new CSUtility();
+        }
+        return null;
     }
 
     public ConfigurationSection configurationSection(){

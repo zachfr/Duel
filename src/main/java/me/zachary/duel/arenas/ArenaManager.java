@@ -1,5 +1,6 @@
 package me.zachary.duel.arenas;
 
+import com.shampaggon.crackshot.CSUtility;
 import me.zachary.duel.Duel;
 import me.zachary.duel.Translation;
 import me.zachary.duel.utils.Utils;
@@ -196,11 +197,15 @@ public class ArenaManager {
 
         for (int iItem = 0; iItem <= main.getConfig().getString("Stuff.Content").length(); iItem++) {
             if(main.getConfig().getString("Stuff.Content." + iItem) != null) {
-                ItemStack item = new ItemStack(Material.valueOf(main.getConfig().getString("Stuff.Content." + iItem + ".name")));
-                if(main.getConfig().getString("Stuff.Content." + iItem + ".enchantment") != null) com.cryptomorin.xseries.XEnchantment.addEnchantFromString(item, main.getConfig().getString("Stuff.Content." + iItem + ".enchantment.name") + ", " + main.getConfig().getString("Stuff.Content." + iItem + ".enchantment.level"));
-                if(main.getConfig().getString("Stuff.Content." + iItem + ".amount") != null) item.setAmount(Integer.parseInt(main.getConfig().getString("Stuff.Content." + iItem + ".amount")));
+                if(main.getConfig().contains("Stuff.Content." + iItem + ".crackshot") && main.getConfig().getBoolean("Stuff.Content." + iItem + ".crackshot")){
+                    main.getcsUtility().giveWeapon(player, main.getConfig().getString("Stuff.Content." + iItem + ".name"), 1);
+                }else {
+                    ItemStack item = new ItemStack(Material.valueOf(main.getConfig().getString("Stuff.Content." + iItem + ".name")));
+                    if(main.getConfig().getString("Stuff.Content." + iItem + ".enchantment") != null) com.cryptomorin.xseries.XEnchantment.addEnchantFromString(item, main.getConfig().getString("Stuff.Content." + iItem + ".enchantment.name") + ", " + main.getConfig().getString("Stuff.Content." + iItem + ".enchantment.level"));
+                    if(main.getConfig().getString("Stuff.Content." + iItem + ".amount") != null) item.setAmount(Integer.parseInt(main.getConfig().getString("Stuff.Content." + iItem + ".amount")));
 
-                player.getInventory().addItem(item);
+                    player.getInventory().addItem(item);
+                }
             }
         }
     }
