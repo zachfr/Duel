@@ -12,8 +12,10 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import xyz.theprogramsrc.supercoreapi.SuperUtils;
 import xyz.theprogramsrc.supercoreapi.global.translations.TranslationDownloader;
 import xyz.theprogramsrc.supercoreapi.spigot.SpigotPlugin;
+import xyz.theprogramsrc.supercoreapi.spigot.utils.ReflectionUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +48,13 @@ public final class Duel extends SpigotPlugin {
 
         this.getTranslationManager().registerTranslation(Translation.class);
         TranslationDownloader.downloadFromGitHub(this, "zachfr", "Duel-Translations", "Translations");
-        log("Successfully loaded translations: " + getLanguage());
+        System.out.println("");
+        System.out.println("§9    ____             __" + "");
+        System.out.println("§9   / __ \\__  _____  / /" + "  §bTranslation loaded: " + getLanguage());
+        System.out.println("§9  / / / / / / / _ \\/ /" + "   §bPlugin version: " + getPluginVersion());
+        System.out.println("§9 / /_/ / /_/ /  __/ /  " + "  §bNMS version: " + ReflectionUtils.getVersion());
+        System.out.println("§9/_____/\\____/\\___/_/   " + "  §bServer version: " + Bukkit.getVersion());
+        System.out.println("");
 
         loadArenaConfig();
         saveDefaultConfig();
