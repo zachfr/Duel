@@ -111,6 +111,11 @@
             <id>TheProgramSrc</id>
             <url>https://repo.theprogramsrc.xyz/repository/maven-public/</url>
         </repository>
+        <!-- Vault api -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -131,12 +136,20 @@
             <artifactId>SuperCoreAPI</artifactId>
             <version>4.3.0</version>
         </dependency>
+        <!-- CrackShot -->
         <dependency>
             <groupId>com.shampaggon</groupId>
             <artifactId>crackshot</artifactId>
             <version>0.98.9</version>
             <scope>system</scope>
             <systemPath>C:/lib/CrackShot.jar</systemPath>
+        </dependency>
+        <!-- Vault api -->
+        <dependency>
+            <groupId>com.github.MilkBowl</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

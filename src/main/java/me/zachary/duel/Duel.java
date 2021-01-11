@@ -7,12 +7,13 @@ import me.zachary.duel.arenas.ArenaManager;
 import me.zachary.duel.commands.Command;
 import me.zachary.duel.storage.Config;
 import me.zachary.duel.utils.Metrics;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import xyz.theprogramsrc.supercoreapi.SuperUtils;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import xyz.theprogramsrc.supercoreapi.global.translations.TranslationDownloader;
 import xyz.theprogramsrc.supercoreapi.spigot.SpigotPlugin;
 import xyz.theprogramsrc.supercoreapi.spigot.utils.ReflectionUtils;
@@ -32,6 +33,7 @@ public final class Duel extends SpigotPlugin {
     private Duel plugin;
     private String world;
     private static Duel duel;
+    public static Economy econ = null;
 
     public Duel() {
     }
@@ -48,13 +50,13 @@ public final class Duel extends SpigotPlugin {
 
         this.getTranslationManager().registerTranslation(Translation.class);
         TranslationDownloader.downloadFromGitHub(this, "zachfr", "Duel-Translations", "Translations");
-        System.out.println("");
-        System.out.println("§9    ____             __" + "");
-        System.out.println("§9   / __ \\__  _____  / /" + "  §bTranslation loaded: " + getLanguage());
-        System.out.println("§9  / / / / / / / _ \\/ /" + "   §bPlugin version: " + getPluginVersion());
-        System.out.println("§9 / /_/ / /_/ /  __/ /  " + "  §bNMS version: " + ReflectionUtils.getVersion());
-        System.out.println("§9/_____/\\____/\\___/_/   " + "  §bServer version: " + Bukkit.getVersion());
-        System.out.println("");
+        Bukkit.getConsoleSender().sendMessage("");
+        Bukkit.getConsoleSender().sendMessage("§9    ____             __" + "");
+        Bukkit.getConsoleSender().sendMessage("§9   / __ \\__  _____  / /" + "  §bTranslation loaded: " + getLanguage());
+        Bukkit.getConsoleSender().sendMessage("§9  / / / / / / / _ \\/ /" + "   §bPlugin version: " + getPluginVersion());
+        Bukkit.getConsoleSender().sendMessage("§9 / /_/ / /_/ /  __/ /  " + "  §bNMS version: " + ReflectionUtils.getVersion());
+        Bukkit.getConsoleSender().sendMessage("§9/_____/\\____/\\___/_/   " + "  §bServer version: " + Bukkit.getVersion());
+        Bukkit.getConsoleSender().sendMessage("");
 
         loadArenaConfig();
         saveDefaultConfig();
@@ -78,6 +80,11 @@ public final class Duel extends SpigotPlugin {
             log("You don't have create arena yet!");
         }
 
+        if (!setupEconomy()) {
+            System.out.println(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
     }
 
     public void loadArenaConfig() {
@@ -153,5 +160,17 @@ public final class Duel extends SpigotPlugin {
 
     public ConfigurationSection configurationSection(){
         return arenaConfig.getConfigurationSection("arenas");
+    }
+
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return econ != null;
     }
 }
