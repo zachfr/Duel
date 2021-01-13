@@ -7,6 +7,7 @@ import me.zachary.duel.arenas.ArenaManager;
 import me.zachary.duel.commands.Command;
 import me.zachary.duel.storage.Config;
 import me.zachary.duel.utils.Metrics;
+import me.zachary.updatechecker.Updatechecker;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -47,6 +48,8 @@ public final class Duel extends SpigotPlugin {
         getServer().getPluginManager().registerEvents(new ArenaListeners(this), this);
         new Command(this);
         new Config(this);
+
+        Updatechecker.updateSongoda(this, 382);
 
         this.getTranslationManager().registerTranslation(Translation.class);
         TranslationDownloader.downloadFromGitHub(this, "zachfr", "Duel-Translations", "Translations");
