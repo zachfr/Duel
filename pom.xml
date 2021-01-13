@@ -6,7 +6,7 @@
 
     <groupId>me.zachary</groupId>
     <artifactId>duel</artifactId>
-    <version>1.10.2</version>
+    <version>1.10.4</version>
     <packaging>jar</packaging>
 
     <name>Duel</name>
@@ -31,44 +31,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>com.cryptomorin.xseries</pattern>
-                            <!-- Be sure to change the package below -->
-                            <shadedPattern>me.zachary.duel.utils</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
                     <execution>
@@ -78,10 +40,26 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <artifactSet>
+                                <includes>
+                                    <include>me.zachary:updatechecker</include>
+                                    <include>xyz.theprogramsrc:SuperCoreAPI</include>
+                                    <include>com.github.cryptomorin:XSeries</include>
+                                </includes>
+                            </artifactSet>
                             <relocations>
                                 <relocation>
                                     <pattern>xyz.theprogramsrc.supercoreapi</pattern>
                                     <shadedPattern>me.zachary.duel.supercoreapi</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.cryptomorin.xseries</pattern>
+                                    <!-- Be sure to change the package below -->
+                                    <shadedPattern>me.zachary.duel.utils</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>me.zachary.updatechecker</pattern>
+                                    <shadedPattern>${project.groupId}.duel.updatechecker</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -111,6 +89,15 @@
             <id>TheProgramSrc</id>
             <url>https://repo.theprogramsrc.xyz/repository/maven-public/</url>
         </repository>
+        <!-- Vault api -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>private</id>
+            <url>http://51.254.247.74:8081/repository/private/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -131,12 +118,26 @@
             <artifactId>SuperCoreAPI</artifactId>
             <version>4.3.0</version>
         </dependency>
+        <!-- CrackShot -->
         <dependency>
             <groupId>com.shampaggon</groupId>
             <artifactId>crackshot</artifactId>
             <version>0.98.9</version>
             <scope>system</scope>
             <systemPath>C:/lib/CrackShot.jar</systemPath>
+        </dependency>
+        <!-- Vault api -->
+        <dependency>
+            <groupId>com.github.MilkBowl</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- UpdateChecker -->
+        <dependency>
+            <groupId>me.zachary</groupId>
+            <artifactId>updatechecker</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>

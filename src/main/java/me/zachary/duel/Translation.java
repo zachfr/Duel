@@ -30,6 +30,9 @@ public enum Translation implements TranslationPack {
     Succesfull_Delete_Arena("&6You have been delete arena: &e<Arena>"),
     No_Arena_Found("&6No arena is found."),
     No_Argument_Delete_Arena("&6Please enter a arena to delete."),
+    Cancel_Duel_Asker("&6You have successfull deny your duel request."),
+    Cancel_Duel_Player("&6The player asked you for a duel cancel his request."),
+    No_Request_Pending("&cYou don't have a request duel pending"),
     ;
 
     private final String content;

@@ -115,6 +115,27 @@ public class Command extends SpigotCommand {
                 }
             }else
                 player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
+        }else if(strings[0].equalsIgnoreCase("cancel")){
+            if(!player.hasPermission("duel.cancel")){
+                player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
+                return CommandResult.COMPLETED;
+            }
+            final int[] i = {0};
+            final Player[] target = new Player[1];
+            duel.players.forEach((player1, player2) -> {
+                if(player2 == player){
+                    player1.sendMessage(Utils.chat(Translation.Cancel_Duel_Player.toString()));
+                    player2.sendMessage(Utils.chat(Translation.Cancel_Duel_Asker.toString()));
+                    target[0] = player1;
+                    i[0] = 1;
+                }
+            });
+            if(i[0] != 1){
+                player.sendMessage(Utils.chat(Translation.No_Request_Pending.toString()));
+                return CommandResult.COMPLETED;
+            }else{
+                duel.players.remove(target[0]);
+            }
         }else if (Bukkit.getPlayer(strings[0]) != null) {
             if (duel.getConfig().getBoolean("Duel_<Player>_Permission") && !player.hasPermission("duel.askduel")){
                 player.sendMessage(Utils.chat(Translation.No_Permission.toString()));
@@ -183,6 +204,7 @@ public class Command extends SpigotCommand {
         if(player.hasPermission("duel.createarena")) help.add("createarena");
         if(player.hasPermission("duel.deletearena")) help.add("deletearena");
         if(player.hasPermission("duel.listarena")) help.add("listarena");
+        if(player.hasPermission("duel.cancel")) help.add("cancel");
         if(player.hasPermission("duel.reload")) help.add("reload");
         return help;
     }
