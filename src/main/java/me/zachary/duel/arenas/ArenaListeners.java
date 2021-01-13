@@ -115,9 +115,22 @@ public class ArenaListeners implements Listener {
     public void onQuit(PlayerQuitEvent event){
 
         Player leaver = event.getPlayer();
+        Player otherPlayer = null;
         Arena arena = main.getArenaManager().getArenaByPlayer(leaver);
 
         if(arena != null) {
+            if(leaver == arena.getPlayers().get(0)){
+                otherPlayer = arena.getPlayers().get(1);
+            }else{
+                otherPlayer = arena.getPlayers().get(0);
+            }
+            main.getArenaManager().restoreInventory(leaver);
+            main.getArenaManager().restoreInventory(otherPlayer);
+            if (!main.getConfig().getBoolean("Player_Should_PVP_With_Their_Own_Stuff")) {
+                main.getArenaManager().restoreInventory(leaver);
+                main.getArenaManager().restoreInventory(otherPlayer);
+            }
+            otherPlayer.sendMessage(Utils.chat("&e" + leaver.getName() + " &6leave the server. So, duel is cancelled."));
             arena.eliminate(leaver);
         }
 
